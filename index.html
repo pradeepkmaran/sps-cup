@@ -16,11 +16,12 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">SPC 2025</div>
+            <div class="nav-brand">SPS CUP 2025</div>
             <div class="nav-links">
                 <a href="#overview" data-scroll="overview">Overview</a>
+                <a href="#purpose" data-scroll="purpose">Purpose</a>
                 <a href="#tracks" data-scroll="tracks">Tracks</a>
-                <a href="#rounds" data-scroll="rounds">Rounds</a>
+                <a href="#structure" data-scroll="structure">Structure</a>
                 <a href="#awards" data-scroll="awards">Awards</a>
             </div>
         </div>
@@ -30,10 +31,13 @@
     <section id="hero" class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">
-                <span class="title-line">Signal Processing</span>
-                <span class="title-line accent">Cup Challenge</span>
+                <span class="title-line white-title">Signal Processing</span>
+                <span class="title-line white-title">Cup Challenge</span>
             </h1>
-            <p class="hero-subtitle">Decode the Future of Biomedical Innovation</p>
+            <p class="hero-subtitle">A National-Level Innovation Challenge</p>
+            <div class="organizers">
+                <span>IEEE Madras Section & SSN College of Engineering, Chennai</span>
+            </div>
             <div class="countdown-container">
                 <div class="countdown-item">
                     <span class="countdown-number" id="days">0</span>
@@ -52,6 +56,9 @@
                     <span class="countdown-label">Seconds</span>
                 </div>
             </div>
+            <div class="registration-info">
+                <span class="reg-text">Registration: 16-25 September 2025</span>
+            </div>
             <button class="btn btn--primary btn--lg cta-button" id="register-btn">
                 Register Now
                 <div class="pulse-ring"></div>
@@ -61,6 +68,8 @@
             <div class="waveform ecg-wave"></div>
             <div class="waveform eeg-wave"></div>
             <div class="waveform emg-wave"></div>
+            <div class="waveform wifi-wave"></div>
+            <div class="waveform seismic-wave"></div>
         </div>
     </section>
 
@@ -70,20 +79,24 @@
             <h2 class="section-title">Overview</h2>
             <div class="overview-content">
                 <p class="section-description">
-                    Join us in exploring the cutting-edge world of signal processing and its revolutionary applications in healthcare and biomedical engineering. This hackathon brings together brilliant minds to solve real-world challenges in medical signal analysis.
+                    The Signal Processing Cup Challenge is a national-level innovation challenge organized by IEEE Madras Section and SSN College of Engineering, Chennai with five tracks: Biomedical Signal Processing : Brain Computer Interface (BCI), Wireless Sensing: Wi-Fi Vision, Environmental & Geospatial Signal Processing, Electronic Vehicles and Student Innovation. Participants in teams of 3–4 will tackle real-world problem statements ranging from brain-computer interfaces and Wi-Fi vision to seismic analysis, EV motor diagnostics, and beyond.
                 </p>
                 <div class="stats-container">
                     <div class="stat-item">
-                        <div class="stat-number" data-target="48">0</div>
-                        <div class="stat-label">Hours of Innovation</div>
+                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-label">Challenge Tracks</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-target="100">0</div>
-                        <div class="stat-label">Participants Expected</div>
+                        <div class="stat-number" data-target="11">0</div>
+                        <div class="stat-label">Problem Statements</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="3">0</div>
+                        <div class="stat-label">Competition Stages</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number" data-target="4">0</div>
-                        <div class="stat-label">Challenge Tracks</div>
+                        <div class="stat-label">Max Team Size</div>
                     </div>
                 </div>
             </div>
@@ -95,24 +108,41 @@
         <div class="container">
             <h2 class="section-title">Purpose</h2>
             <div class="purpose-content">
-                <p class="section-description">
-                    Advancing biomedical signal processing techniques to improve healthcare diagnostics, treatment monitoring, and patient outcomes through innovative engineering solutions.
-                </p>
                 <div class="purpose-grid">
                     <div class="purpose-card">
-                        <div class="purpose-icon heart-icon"></div>
-                        <h3>Healthcare Innovation</h3>
-                        <p>Revolutionizing patient care through advanced signal analysis</p>
+                        <div class="track-icon innovation-icon">🚀</div>
+                        <h3>Foster Innovation</h3>
+                        <p>Foster innovation in the field of signal processing</p>
                     </div>
                     <div class="purpose-card">
-                        <div class="purpose-icon brain-icon"></div>
-                        <h3>Neural Engineering</h3>
-                        <p>Unlocking the mysteries of brain signals and neural interfaces</p>
+                        <div class="track-icon problem-icon">🎯</div>
+                        <h3>Real-World Problems</h3>
+                        <p>Encourage students to solve real-world, interdisciplinary problems</p>
                     </div>
                     <div class="purpose-card">
-                        <div class="purpose-icon medical-icon"></div>
-                        <h3>Medical Technology</h3>
-                        <p>Creating next-generation diagnostic and monitoring systems</p>
+                        <div class="track-icon skills-icon">⚡</div>
+                        <h3>Showcase Skills</h3>
+                        <p>Provide a platform for showcasing creativity, research, and technical skills</p>
+                    </div>
+                    <div class="purpose-card">
+                        <div class="track-icon collaboration-icon">🤝</div>
+                        <h3>Promote Collaboration</h3>
+                        <p>Promote collaboration across diverse academic backgrounds</p>
+                    </div>
+                    <div class="purpose-card">
+                        <div class="track-icon solutions-icon">💡</div>
+                        <h3>Scalable Solutions</h3>
+                        <p>Drive solutions that are scalable, cost-effective, and impactful</p>
+                    </div>
+                    <div class="purpose-card">
+                        <div class="track-icon recognition-icon">🏆</div>
+                        <h3>Recognize Excellence</h3>
+                        <p>Recognize and reward outstanding projects with practical societal value</p>
+                    </div>
+                    <div class="purpose-card centered-card">
+                        <div class="track-icon inspire-icon">✨</div>
+                        <h3>Inspire Innovation</h3>
+                        <p>Inspire the next generation of engineers and innovators through competition and hands-on problem solving</p>
                     </div>
                 </div>
             </div>
@@ -123,39 +153,185 @@
     <section id="tracks" class="section">
         <div class="container">
             <h2 class="section-title">Tracks & Problem Statements</h2>
-            <div class="tracks-grid">
-                <div class="track-card" data-track="ecg">
+            <div class="tracks-container">
+                
+                <!-- Track 1: Biomedical Signal Processing -->
+                <div class="track-section" data-track="biomedical">
                     <div class="track-header">
-                        <div class="track-icon ecg-icon"></div>
-                        <h3>ECG Signal Analysis</h3>
+                        <div class="track-icon biomedical-icon">🧠</div>
+                        <h3>Biomedical Signal Processing: Brain Computer Interface (BCI)</h3>
                     </div>
-                    <p>Develop algorithms for cardiac rhythm analysis and anomaly detection</p>
-                    <div class="track-mini-signal ecg-mini"></div>
+                    <div class="problems-grid">
+                        <div class="problem-card" data-problem="motor-imagery">
+                            <div class="problem-header">
+                                <h4>Motor Imagery EEG Control</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Design a system that decodes motor imagery from EEG signals to allow hands-free control interfaces. Build a signal processing pipeline that classifies multi-channel EEG data based on imagined limb movements, such as left hand versus right hand.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Build a signal processing pipeline that classifies multi-channel EEG data based on imagined limb movements, such as left hand versus right hand. The solution should include preprocessing, like filtering and artifact removal, feature extraction, such as CSP(Common Spatial Patterns) and wavelet transforms, and classification, using methods like SVM(Support Vector Machine) and CNN(Convolutional Neural Network). There are bonus points for real-time implementation or integration with a virtual interface.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card" data-problem="emotional-state">
+                            <div class="problem-header">
+                                <h4>Emotional State Recognition</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Develop a model that identifies emotional states using EEG signals to support mental health monitoring and user interfaces that adjust to needs. Create a system that processes EEG data to classify emotional states, including happiness, stress, or calmness.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Create a system that processes EEG data to classify emotional states, including happiness, stress, or calmness. Use publicly available datasets, such as DEAP and DREAMER, and apply techniques like frequency band analysis, entropy measures, and machine learning classifiers. Focus on making the results easy to interpret and reliable across different subjects.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card" data-problem="cognitive-workload">
+                            <div class="problem-header">
+                                <h4>Cognitive Workload Estimation</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Estimate cognitive workload from EEG signals to improve human-computer interaction and learning systems. Design a pipeline that analyzes EEG recordings to measure cognitive load during tasks, such as problem-solving or multitasking.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Design a pipeline that analyzes EEG recordings to measure cognitive load during tasks, such as problem-solving or multitasking. Include preprocessing, feature engineering, like theta/beta ratio and spectral power, and use regression or classification models. Consider adding real-time feedback mechanisms or integration with adaptive systems.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="track-card" data-track="eeg">
+
+                <!-- Track 2: Wireless Sensing -->
+                <div class="track-section" data-track="wireless">
                     <div class="track-header">
-                        <div class="track-icon eeg-icon"></div>
-                        <h3>EEG Brain Signal Processing</h3>
+                        <div class="track-icon wireless-icon">📶</div>
+                        <h3>Wireless Sensing: Wi-Fi Vision</h3>
                     </div>
-                    <p>Create brain-computer interfaces and neurological disorder detection systems</p>
-                    <div class="track-mini-signal eeg-mini"></div>
+                    <div class="problems-grid">
+                        <div class="problem-card centered-card" data-problem="device-free">
+                            <div class="problem-header">
+                                <h4>Device-Free Activity Recognition</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Use Channel State Information (CSI) extracted from standard Wi-Fi packets to detect and classify human activities in a room (e.g., walking, sitting, waving) without using cameras or wearables.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Use Channel State Information (CSI) extracted from standard Wi-Fi packets to detect and classify human activities in a room (e.g., walking, sitting, waving) without using cameras or wearables. Focus on signal processing techniques for CSI analysis and machine learning models for activity classification.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="track-card" data-track="emg">
+
+                <!-- Track 3: Environmental & Geospatial -->
+                <div class="track-section" data-track="environmental">
                     <div class="track-header">
-                        <div class="track-icon emg-icon"></div>
-                        <h3>EMG Muscle Signal Analysis</h3>
+                        <div class="track-icon environmental-icon">🌍</div>
+                        <h3>Environmental & Geospatial Signal Processing</h3>
                     </div>
-                    <p>Build systems for muscle activity monitoring and rehabilitation</p>
-                    <div class="track-mini-signal emg-mini"></div>
+                    <div class="problems-grid">
+                        <div class="problem-card" data-problem="seismic">
+                            <div class="problem-header">
+                                <h4>Seismic Event Classifier</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Identify earthquakes by clear P and S arrivals, emergent onset, long coda, and strong low-frequency surface waves. Detect explosions through impulsive P waves, weak or absent S waves, short duration, and high-frequency content.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Classify different types of seismic events and distinguish them from urban noise. Identify earthquakes by clear P and S arrivals, emergent onset, long coda, and strong low-frequency surface waves. Detect explosions through impulsive P waves, weak or absent S waves, short duration, and high-frequency content. Recognize urban noise as continuous, high-frequency, repetitive signals without distinct seismic phases.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card" data-problem="acoustic">
+                            <div class="problem-header">
+                                <h4>Acoustic Source Localization</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Set up an array of microphones at precisely known positions in the environment. Record the sound signal as it reaches each microphone. Calculate the Time Difference of Arrival (TDOA) of the sound between microphones.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Set up an array of microphones at precisely known positions in the environment. Record the sound signal as it reaches each microphone. Carefully calculate the Time Difference of Arrival (TDOA) of the sound between microphones. Use these time delays to estimate relative distances from the source. Finally, apply triangulation or multilateration techniques to accurately determine and pinpoint the physical location of the sound source.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card" data-problem="deforestation">
+                            <div class="problem-header">
+                                <h4>Deforestation Detector with Radar Imagery</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Collect time-series Synthetic Aperture Radar (SAR) satellite images of the target region. Preprocess the imagery to remove noise and align datasets. Compare images across different time intervals to identify significant changes.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Collect time-series Synthetic Aperture Radar (SAR) satellite images of the target region. Preprocess the imagery to remove noise and align datasets. Compare images across different time intervals to identify significant changes in backscatter patterns. Detect anomalies indicating vegetation loss. Highlight and map these areas to pinpoint recent deforestation accurately.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="track-card" data-track="ai">
+
+                <!-- Track 4: Electronic Vehicles -->
+                <div class="track-section" data-track="vehicles">
                     <div class="track-header">
-                        <div class="track-icon ai-icon"></div>
-                        <h3>Medical Imaging & AI</h3>
+                        <div class="track-icon vehicles-icon">🔋</div>
+                        <h3>Electronic Vehicles</h3>
                     </div>
-                    <p>Apply machine learning to medical image analysis and diagnosis</p>
-                    <div class="track-mini-signal ai-mini"></div>
+                    <div class="problems-grid">
+                        <div class="problem-card" data-problem="inverter">
+                            <div class="problem-header">
+                                <h4>Inverter Fault Detection</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Build a system that detects inverter faults in EVs by analyzing current and voltage waveforms. The pipeline should include preprocessing signals with filtering and denoising methods and extracting features using FFT, Wavelet Transform, and time-frequency analysis.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Build a system that detects inverter faults in EVs by analyzing current and voltage waveforms. The pipeline should include: Preprocessing signals with filtering and denoising methods. Extracting features using FFT, Wavelet Transform, and time-frequency analysis to spot harmonic distortions, short circuits, or switching faults. Using adaptive filtering to separate fault signals from normal noise. Classifying faults with machine learning models for real-time detection. Integrating with onboard vehicle control units for alerts and cloud dashboards for fleet monitoring.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card" data-problem="motor">
+                            <div class="problem-header">
+                                <h4>Electric Motor Condition Monitoring</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Develop a signal processing pipeline that continuously checks EV motor health using stator current, vibration, and sound emission signals. Use Envelope Detection, Hilbert-Huang Transform, and Spectrogram analysis.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Develop a signal processing pipeline that continuously checks EV motor health using stator current, vibration, and sound emission signals. The system should: Preprocess signals to cut down noise and improve the signal-to-noise ratio. Use Envelope Detection, Hilbert-Huang Transform, and Spectrogram analysis to pull out fault-specific features. Detects issues like bearing wear, rotor misalignment, and insulation breakdown. Implement real-time anomaly classification using AI/ML models like SVM and CNN. Offer predictive insights for preventive maintenance and less downtime.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-card" data-problem="road">
+                            <div class="problem-header">
+                                <h4>Road Condition Classification</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Develop a road-condition classification system for EVs using vibration signal processing. Acquire vibration signals from accelerometers attached to the suspension and chassis using time-frequency analysis.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>Develop a road-condition classification system for EVs using vibration signal processing. The system should acquire vibration signals from accelerometers attached to the suspension and chassis. Use time-frequency analysis, such as STFT and Wavelet Transforms, to classify road conditions like smooth, rough, potholes, wet, or gravel. Connect vibration patterns with tire-road interaction for better suspension control. Enable adaptive ride comfort and proactive safety features like auto-braking and traction control. Support integration with EV fleet management for optimizing routes.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Track 5: Student Innovation -->
+                <div class="track-section" data-track="innovation">
+                    <div class="track-header">
+                        <div class="track-icon innovation-track-icon">💡</div>
+                        <h3>Student Innovation</h3>
+                    </div>
+                    <div class="problems-grid">
+                        <div class="problem-card centered-card" data-problem="open">
+                            <div class="problem-header">
+                                <h4>Open Innovation Track</h4>
+                                <button class="expand-btn" data-expanded="false">+</button>
+                            </div>
+                            <p class="problem-description">Propose your own innovative signal processing solution to address real-world challenges. This track encourages creative thinking and novel applications of signal processing techniques across any domain.</p>
+                            <div class="problem-details">
+                                <strong>Challenge:</strong>
+                                <p>This track is open for students to propose their own innovative signal processing solutions addressing real-world challenges. Solutions should demonstrate novelty, technical depth, and practical impact. Teams are encouraged to explore cutting-edge applications and interdisciplinary approaches to signal processing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -167,20 +343,103 @@
             <div class="team-content">
                 <div class="team-requirements">
                     <div class="requirement-item">
-                        <strong>Team Size:</strong> 4-6 members per team
-                    </div>
-                    <div class="requirement-item">
-                        <strong>Skills Needed:</strong>
-                        <div class="skills-tags">
-                            <span class="skill-tag">Signal Processing</span>
-                            <span class="skill-tag">Machine Learning</span>
-                            <span class="skill-tag">Biomedical Engineering</span>
-                            <span class="skill-tag">Software Development</span>
-                            <span class="skill-tag">Data Analysis</span>
+                        <div class="track-icon team-size-icon">👥</div>
+                        <div class="req-content">
+                            <strong>Team Size:</strong> 3 to 4 members per team
                         </div>
                     </div>
                     <div class="requirement-item">
-                        <strong>Eligibility:</strong> Students, researchers, and professionals in engineering, computer science, and related fields
+                        <div class="track-icon diversity-icon">🌐</div>
+                        <div class="req-content">
+                            <strong>Diversity:</strong> Team members can be from different academic backgrounds
+                        </div>
+                    </div>
+                    <div class="requirement-item">
+                        <div class="track-icon track-selection-icon">🎯</div>
+                        <div class="req-content">
+                            <strong>Track Selection:</strong> Each team selects one track to compete in
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Structure Section -->
+    <section id="structure" class="section">
+        <div class="container">
+            <h2 class="section-title">Hackathon Structure</h2>
+            <div class="structure-timeline">
+                <div class="structure-item">
+                    <div class="structure-number">01</div>
+                    <div class="structure-content">
+                        <h3>Round 1: Idea Submission (Online)</h3>
+                        <div class="structure-details">
+                            <p>Submit presentations based on the provided template. Evaluated for novelty, feasibility, cost effectiveness and scalability.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="structure-item">
+                    <div class="structure-number">02</div>
+                    <div class="structure-content">
+                        <h3>Grand Demo Day (Offline – Top 10 Teams)</h3>
+                        <div class="structure-date">16th and 17th October 2025</div>
+                        <div class="structure-location">Sri Sivasubramaniya Nadar College of Engineering</div>
+                        <div class="structure-details">
+                            <div class="sub-rounds">
+                                <div class="sub-round">
+                                    <strong>Round 1:</strong> Implementation and setup with suggestions until 4pm, evaluation at 5pm
+                                </div>
+                                <div class="sub-round">
+                                    <strong>Round 2:</strong> Implementation of changes and suggestions, judged at 1pm
+                                </div>
+                                <div class="sub-round">
+                                    <strong>Round 3:</strong> Final review by External Jury at 9am on second day
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guidelines Section -->
+    <section id="guidelines" class="section">
+        <div class="container">
+            <h2 class="section-title">Guidelines & Selection Criteria</h2>
+            <div class="guidelines-content">
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <div class="track-icon novelty-icon">⭐</div>
+                        <h4>Novelty and Originality</h4>
+                        <p>Novelty and originality of the proposed solution</p>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="track-icon complexity-icon">🔧</div>
+                        <h4>Technical Complexity</h4>
+                        <p>Complexity and depth of technical approach</p>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="track-icon clarity-icon">📝</div>
+                        <h4>Clarity & Structure</h4>
+                        <p>Clarity, structure, and details in submission format</p>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="track-icon feasibility-icon">✅</div>
+                        <h4>Feasibility</h4>
+                        <p>Feasibility of implementation with available resources</p>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="track-icon sustainability-icon">♻️</div>
+                        <h4>Sustainability</h4>
+                        <p>Sustainability of the solution over time</p>
+                    </div>
+                    <div class="criteria-card">
+                        <div class="track-icon scalability-icon">📈</div>
+                        <h4>Scalability</h4>
+                        <p>Scalability of the solution</p>
                     </div>
                 </div>
             </div>
@@ -192,11 +451,26 @@
         <div class="container">
             <h2 class="section-title">General Rules</h2>
             <div class="rules-list">
-                <div class="rule-item">Teams must be formed prior to the hackathon start date</div>
-                <div class="rule-item">All code and solutions must be original work created during the event</div>
-                <div class="rule-item">Use of existing libraries and frameworks is permitted</div>
-                <div class="rule-item">Teams must submit working demos and documentation</div>
-                <div class="rule-item">Judges' decisions are final</div>
+                <div class="rule-item">
+                    <div class="rule-number">1</div>
+                    <div class="rule-content">Projects must be developed during the hackathon period</div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">2</div>
+                    <div class="rule-content">Use of open-source or existing code must be declared</div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">3</div>
+                    <div class="rule-content">All team members must be present for evaluations</div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">4</div>
+                    <div class="rule-content">Plagiarism will lead to disqualification</div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">5</div>
+                    <div class="rule-content">Respect deadlines and conduct</div>
+                </div>
             </div>
         </div>
     </section>
@@ -205,64 +479,71 @@
     <section id="awards" class="section">
         <div class="container">
             <h2 class="section-title">Awards & Recognition</h2>
-            <div class="awards-grid">
-                <div class="award-card grand-prize">
-                    <div class="award-icon trophy-icon"></div>
-                    <h3>Grand Prize</h3>
-                    <div class="prize-amount">₹50,000</div>
-                    <p>+ Mentorship Opportunity</p>
-                    <span class="award-desc">Best overall solution</span>
-                </div>
-                <div class="award-card track-prize">
-                    <div class="award-icon medal-icon"></div>
-                    <h3>Track Winners</h3>
-                    <div class="prize-amount">₹25,000</div>
-                    <p>each track</p>
-                    <span class="award-desc">Best solution per track</span>
-                </div>
-                <div class="award-card innovation-prize">
-                    <div class="award-icon star-icon"></div>
-                    <h3>Innovation Award</h3>
-                    <div class="prize-amount">₹15,000</div>
-                    <p>Special Recognition</p>
-                    <span class="award-desc">Most creative approach</span>
+            <div class="awards-content">
+                <div class="awards-info">
+                    <div class="award-highlight">
+                        <div class="track-icon trophy-icon">🏆</div>
+                        <div class="award-details">
+                            <h3>Track Winners</h3>
+                            <p>Top 2 teams from each track receive cash prizes and certificates</p>
+                        </div>
+                    </div>
+                    <div class="award-highlight">
+                        <div class="track-icon certificate-icon">🎓</div>
+                        <div class="award-details">
+                            <h3>Participation Recognition</h3>
+                            <p>Participation certificates for all shortlisted teams in the final round</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Rounds Section -->
-    <section id="rounds" class="section">
+    <!-- Expected Outcomes Section -->
+    <section id="outcomes" class="section">
         <div class="container">
-            <h2 class="section-title">Competition Rounds</h2>
-            <div class="rounds-timeline">
-                <div class="round-item">
-                    <div class="round-number">01</div>
-                    <div class="round-content">
-                        <h3>PPT Screening</h3>
-                        <div class="round-date">Sunday, 28th September 2025</div>
-                        <p>Initial presentation screening of team ideas and approaches</p>
-                        <div class="round-format">Results announced via email</div>
-                    </div>
+            <h2 class="section-title">Expected Outcomes</h2>
+            <div class="outcomes-grid">
+                <div class="outcome-card">
+                    <div class="track-icon culture-icon">🌟</div>
+                    <h4>Innovation Culture</h4>
+                    <p>Encourages a culture of innovation and problem-solving among students</p>
                 </div>
-                <div class="round-item">
-                    <div class="round-number">02</div>
-                    <div class="round-content">
-                        <h3>Online Conference Round</h3>
-                        <div class="round-date">September - October 2nd, 2025 (5-8 PM)</div>
-                        <p>Detailed presentation and demonstration to judges</p>
-                        <div class="round-format">Top 6 teams from each theme selected</div>
-                        <div class="round-announcement">Results: Sunday, 5th October 2025</div>
-                    </div>
+                <div class="outcome-card">
+                    <div class="track-icon learning-icon">📚</div>
+                    <h4>Hands-on Learning</h4>
+                    <p>Provides hands-on learning experience in applying theoretical concepts</p>
                 </div>
-                <div class="round-item">
-                    <div class="round-number">03</div>
-                    <div class="round-content">
-                        <h3>Final Physical Round</h3>
-                        <div class="round-date">16th and 17th October 2025</div>
-                        <p>In-person final presentations and demonstrations at SSNCE Campus</p>
-                        <div class="round-format">Physical presentation and demo</div>
-                    </div>
+                <div class="outcome-card">
+                    <div class="track-icon teamwork-icon">🤝</div>
+                    <h4>Teamwork Skills</h4>
+                    <p>Strengthens teamwork, leadership, and collaboration skills</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="track-icon exposure-icon">🔬</div>
+                    <h4>Industry Exposure</h4>
+                    <p>Builds exposure to real-world industry problems and research trends</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="track-icon communication-icon">💬</div>
+                    <h4>Communication Skills</h4>
+                    <p>Enhances presentation, communication, and pitching abilities</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="track-icon networking-icon">🌐</div>
+                    <h4>Networking</h4>
+                    <p>Offers opportunities for networking with peers, mentors, and professionals</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="track-icon career-icon">🚀</div>
+                    <h4>Career Inspiration</h4>
+                    <p>Inspires participants to pursue future research, startups, or career paths</p>
+                </div>
+                <div class="outcome-card">
+                    <div class="track-icon community-icon">🌍</div>
+                    <h4>Innovation Community</h4>
+                    <p>Contributes to the creation of a community of innovators capable of addressing global challenges</p>
                 </div>
             </div>
         </div>
@@ -273,13 +554,18 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Signal Processing Cup 2025</h4>
-                    <p>Advancing biomedical innovation through signal processing</p>
+                    <h4>Signal Processing Cup Challenge 2025</h4>
+                    <p>Advancing innovation through signal processing challenges</p>
+                    <div class="important-dates">
+                        <p><strong>Registration:</strong> 16-25 September 2025</p>
+                        <p><strong>Grand Finale:</strong> 16-17 October 2025</p>
+                    </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>SSNCE Campus</p>
-                    <p>Chennai, Tamil Nadu</p>
+                    <h4>Organizers</h4>
+                    <p>IEEE Madras Section</p>
+                    <p>SSN College of Engineering, Chennai</p>
+                    <p>Sri Sivasubramaniya Nadar College of Engineering</p>
                 </div>
             </div>
         </div>
