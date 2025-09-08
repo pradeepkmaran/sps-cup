@@ -1,10 +1,11 @@
 // Global variables
-let particleSystem;
+let particleSystem = [];
 let signalCanvas;
 let particlesCanvas;
 let signalCtx;
 let particlesCtx;
 let animationId;
+let signalWaveforms = [];
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollAnimations();
     initializeSmoothScrolling();
     initializeInteractiveElements();
+    initializeProblemCards();
     startAnimationLoop();
 });
 
@@ -49,18 +51,31 @@ class Particle {
     constructor(x, y, type = 'default') {
         this.x = x;
         this.y = y;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
+        this.vx = (Math.random() - 0.5) * 0.8;
+        this.vy = (Math.random() - 0.5) * 0.8;
         this.life = 1.0;
-        this.decay = 0.01;
-        this.size = Math.random() * 3 + 1;
+        this.decay = 0.008;
+        this.size = Math.random() * 4 + 1;
         this.type = type;
         this.angle = Math.random() * Math.PI * 2;
-        this.rotation = (Math.random() - 0.5) * 0.02;
+        this.rotation = (Math.random() - 0.5) * 0.03;
         this.pulse = Math.random() * Math.PI * 2;
         this.originalX = x;
         this.originalY = y;
-        this.amplitude = Math.random() * 20 + 10;
+        this.amplitude = Math.random() * 30 + 15;
+        this.color = this.getTypeColor(type);
+    }
+    
+    getTypeColor(type) {
+        const colors = {
+            'biomedical': '#00ffff',
+            'wireless': '#0066ff', 
+            'environmental': '#39ff14',
+            'vehicles': '#ff6b35',
+            'innovation': '#e91e63',
+            'default': '#ffffff'
+        };
+        return colors[type] || colors['default'];
     }
     
     update(mouseX, mouseY) {
@@ -69,55 +84,68 @@ class Particle {
         const dy = mouseY - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 100) {
-            const force = (100 - distance) / 100;
-            this.vx -= (dx / distance) * force * 0.02;
-            this.vy -= (dy / distance) * force * 0.02;
+        if (distance < 150) {
+            const force = (150 - distance) / 150;
+            this.vx -= (dx / distance) * force * 0.03;
+            this.vy -= (dy / distance) * force * 0.03;
         }
         
-        // Update position
+        // Update position with velocity damping
         this.x += this.vx;
         this.y += this.vy;
+        this.vx *= 0.99;
+        this.vy *= 0.99;
         
         // Add floating motion
-        this.pulse += 0.02;
-        this.y += Math.sin(this.pulse) * 0.3;
+        this.pulse += 0.025;
+        this.y += Math.sin(this.pulse) * 0.4;
+        this.x += Math.cos(this.pulse * 0.7) * 0.2;
         
-        // Boundary collision
-        if (this.x <= 0 || this.x >= particlesCanvas.width) this.vx *= -0.8;
-        if (this.y <= 0 || this.y >= particlesCanvas.height) this.vy *= -0.8;
-        
-        // Keep in bounds
-        this.x = Math.max(0, Math.min(particlesCanvas.width, this.x));
-        this.y = Math.max(0, Math.min(particlesCanvas.height, this.y));
+        // Boundary collision with bounce
+        if (this.x <= 0 || this.x >= particlesCanvas.width) {
+            this.vx *= -0.7;
+            this.x = Math.max(0, Math.min(particlesCanvas.width, this.x));
+        }
+        if (this.y <= 0 || this.y >= particlesCanvas.height) {
+            this.vy *= -0.7;
+            this.y = Math.max(0, Math.min(particlesCanvas.height, this.y));
+        }
         
         // Rotation and life decay
         this.angle += this.rotation;
-        this.life -= this.decay * 0.1;
+        this.life -= this.decay * 0.3;
         
         // Reset if life is too low
         if (this.life <= 0) {
             this.life = 1.0;
             this.x = Math.random() * particlesCanvas.width;
             this.y = Math.random() * particlesCanvas.height;
+            this.vx = (Math.random() - 0.5) * 0.8;
+            this.vy = (Math.random() - 0.5) * 0.8;
         }
     }
     
     draw(ctx) {
         ctx.save();
-        ctx.globalAlpha = this.life * 0.6;
+        ctx.globalAlpha = this.life * 0.7;
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
         
         switch(this.type) {
-            case 'ecg':
-                this.drawECG(ctx);
+            case 'biomedical':
+                this.drawBiomedical(ctx);
                 break;
-            case 'eeg':
-                this.drawEEG(ctx);
+            case 'wireless':
+                this.drawWireless(ctx);
                 break;
-            case 'medical':
-                this.drawMedical(ctx);
+            case 'environmental':
+                this.drawEnvironmental(ctx);
+                break;
+            case 'vehicles':
+                this.drawVehicles(ctx);
+                break;
+            case 'innovation':
+                this.drawInnovation(ctx);
                 break;
             default:
                 this.drawDefault(ctx);
@@ -128,7 +156,7 @@ class Particle {
     
     drawDefault(ctx) {
         const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
-        gradient.addColorStop(0, '#00ffff');
+        gradient.addColorStop(0, this.color);
         gradient.addColorStop(1, 'transparent');
         
         ctx.fillStyle = gradient;
@@ -137,50 +165,98 @@ class Particle {
         ctx.fill();
     }
     
-    drawECG(ctx) {
-        ctx.strokeStyle = '#ff5459';
+    drawBiomedical(ctx) {
+        // Draw EEG-like wave
+        ctx.strokeStyle = this.color;
         ctx.lineWidth = 2;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
         ctx.beginPath();
-        ctx.moveTo(-8, 0);
-        ctx.lineTo(-2, 0);
-        ctx.lineTo(0, -10);
-        ctx.lineTo(2, 15);
-        ctx.lineTo(4, -5);
-        ctx.lineTo(6, 0);
-        ctx.lineTo(8, 0);
-        ctx.stroke();
-    }
-    
-    drawEEG(ctx) {
-        ctx.strokeStyle = '#0066ff';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        for (let i = -8; i <= 8; i++) {
-            const y = Math.sin(i * 0.5) * 5;
-            if (i === -8) ctx.moveTo(i, y);
+        for (let i = -10; i <= 10; i++) {
+            const y = Math.sin(i * 0.5 + this.pulse) * 4;
+            if (i === -10) ctx.moveTo(i, y);
             else ctx.lineTo(i, y);
         }
         ctx.stroke();
     }
     
-    drawMedical(ctx) {
-        ctx.strokeStyle = '#39ff14';
+    drawWireless(ctx) {
+        // Draw Wi-Fi signal waves
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = 1.5;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = this.color;
+        
+        for (let i = 1; i <= 3; i++) {
+            ctx.beginPath();
+            ctx.arc(0, 0, i * 3, -Math.PI/4, Math.PI/4);
+            ctx.stroke();
+        }
+    }
+    
+    drawEnvironmental(ctx) {
+        // Draw seismic wave pattern
+        ctx.strokeStyle = this.color;
         ctx.lineWidth = 2;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
         ctx.beginPath();
-        // Draw a plus sign
-        ctx.moveTo(0, -6);
-        ctx.lineTo(0, 6);
-        ctx.moveTo(-6, 0);
-        ctx.lineTo(6, 0);
+        ctx.moveTo(-8, 0);
+        ctx.lineTo(-5, 0);
+        ctx.lineTo(-3, -8);
+        ctx.lineTo(0, 12);
+        ctx.lineTo(3, -6);
+        ctx.lineTo(5, 0);
+        ctx.lineTo(8, 0);
         ctx.stroke();
+    }
+    
+    drawVehicles(ctx) {
+        // Draw gear-like pattern
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = 2;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = this.color;
+        
+        ctx.beginPath();
+        for (let i = 0; i < 8; i++) {
+            const angle = (i * Math.PI) / 4;
+            const x1 = Math.cos(angle) * 4;
+            const y1 = Math.sin(angle) * 4;
+            const x2 = Math.cos(angle) * 8;
+            const y2 = Math.sin(angle) * 8;
+            
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+        }
+        ctx.stroke();
+    }
+    
+    drawInnovation(ctx) {
+        // Draw star pattern
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
+        
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+            const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
+            const x = Math.cos(angle) * 6;
+            const y = Math.sin(angle) * 6;
+            
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fill();
     }
 }
 
 function initializeParticleSystem() {
     particleSystem = [];
-    const particleTypes = ['default', 'ecg', 'eeg', 'medical'];
+    const particleTypes = ['biomedical', 'wireless', 'environmental', 'vehicles', 'innovation', 'default'];
     
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 60; i++) {
         const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
         particleSystem.push(new Particle(
             Math.random() * window.innerWidth,
@@ -190,14 +266,14 @@ function initializeParticleSystem() {
     }
 }
 
-// Signal Waveforms
+// Signal Waveforms for background
 class SignalWaveform {
     constructor(type, y, color, frequency = 0.01) {
         this.type = type;
         this.y = y;
         this.color = color;
         this.frequency = frequency;
-        this.amplitude = 30;
+        this.amplitude = 40;
         this.offset = 0;
         this.points = [];
     }
@@ -208,113 +284,119 @@ class SignalWaveform {
         
         if (!signalCanvas) return;
         
-        for (let x = 0; x <= signalCanvas.width + 50; x += 5) {
+        for (let x = 0; x <= signalCanvas.width + 100; x += 8) {
             let y;
             switch(this.type) {
-                case 'ecg':
-                    y = this.generateECG(x);
+                case 'biomedical':
+                    y = this.generateBiomedical(x);
                     break;
-                case 'eeg':
-                    y = this.generateEEG(x);
+                case 'wireless':
+                    y = this.generateWireless(x);
                     break;
-                case 'emg':
-                    y = this.generateEMG(x);
+                case 'environmental':
+                    y = this.generateEnvironmental(x);
+                    break;
+                case 'vehicles':
+                    y = this.generateVehicles(x);
                     break;
                 default:
                     y = this.generateDefault(x);
             }
-            this.points.push({ x: x - this.offset * 100, y: this.y + y });
+            this.points.push({ x: x - this.offset * 150, y: this.y + y });
         }
     }
     
-    generateECG(x) {
-        const baseFreq = 0.01;
+    generateBiomedical(x) {
+        const baseFreq = 0.015;
         const pos = x * baseFreq + this.offset;
         
-        // ECG pattern: P wave, QRS complex, T wave
-        let signal = 0;
-        const cyclePos = (pos % (Math.PI * 2));
-        
-        if (cyclePos > 1.0 && cyclePos < 1.5) {
-            // P wave
-            signal = Math.sin((cyclePos - 1.0) * 4) * 8;
-        } else if (cyclePos > 2.5 && cyclePos < 3.2) {
-            // QRS complex
-            const qrsPos = (cyclePos - 2.5) / 0.7;
-            if (qrsPos < 0.3) signal = -qrsPos * 15;
-            else if (qrsPos < 0.6) signal = (qrsPos - 0.3) * 50 - 5;
-            else signal = -(qrsPos - 0.6) * 25 + 10;
-        } else if (cyclePos > 4.0 && cyclePos < 5.0) {
-            // T wave
-            signal = Math.sin((cyclePos - 4.0) * Math.PI) * 12;
-        }
-        
-        return signal + Math.sin(pos * 10) * 2; // Add some noise
+        // EEG-like pattern
+        return Math.sin(pos) * 20 + 
+               Math.sin(pos * 2.3) * 12 + 
+               Math.sin(pos * 3.7) * 8 +
+               Math.random() * 6 - 3;
     }
     
-    generateEEG(x) {
+    generateWireless(x) {
         const pos = x * 0.02 + this.offset;
         return Math.sin(pos) * 15 + 
-               Math.sin(pos * 1.5) * 8 + 
-               Math.sin(pos * 2.3) * 5 +
-               Math.random() * 4 - 2;
+               Math.sin(pos * 1.8) * 10 + 
+               Math.cos(pos * 0.7) * 18;
     }
     
-    generateEMG(x) {
-        const pos = x * 0.03 + this.offset;
-        return (Math.random() - 0.5) * 25 + 
-               Math.sin(pos) * 10 +
-               Math.sin(pos * 0.5) * 15;
+    generateEnvironmental(x) {
+        const pos = x * 0.012 + this.offset;
+        const cyclePos = (pos % (Math.PI * 4));
+        
+        let signal = Math.sin(pos * 0.5) * 8;
+        
+        // Add seismic spike occasionally
+        if (cyclePos > 3 && cyclePos < 3.3) {
+            signal += Math.sin((cyclePos - 3) * 10) * 25;
+        }
+        
+        return signal + Math.random() * 4 - 2;
+    }
+    
+    generateVehicles(x) {
+        const pos = x * 0.025 + this.offset;
+        return Math.sin(pos) * 12 + 
+               Math.cos(pos * 1.5) * 8 + 
+               Math.sin(pos * 0.3) * 15 +
+               (Math.random() - 0.5) * 8;
     }
     
     generateDefault(x) {
         const pos = x * 0.02 + this.offset;
-        return Math.sin(pos) * this.amplitude;
+        return Math.sin(pos) * this.amplitude * 0.7;
     }
     
     draw(ctx) {
-        if (!ctx) return;
+        if (!ctx || this.points.length === 0) return;
         
         ctx.strokeStyle = this.color;
         ctx.lineWidth = 2;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 15;
         ctx.shadowColor = this.color;
-        ctx.globalAlpha = 0.4;
+        ctx.globalAlpha = 0.3;
         
         ctx.beginPath();
+        let started = false;
+        
         for (let i = 0; i < this.points.length; i++) {
             const point = this.points[i];
-            if (point.x > -50 && point.x < signalCanvas.width + 50) {
-                if (i === 0 || this.points[i-1].x < -50) {
+            if (point.x > -100 && point.x < signalCanvas.width + 100) {
+                if (!started) {
                     ctx.moveTo(point.x, point.y);
+                    started = true;
                 } else {
                     ctx.lineTo(point.x, point.y);
                 }
             }
         }
-        ctx.stroke();
         
+        ctx.stroke();
         ctx.shadowBlur = 0;
         ctx.globalAlpha = 1;
     }
 }
 
-let signalWaveforms = [];
-
 function initializeSignalWaveforms() {
     if (!signalCanvas) return;
     
     signalWaveforms = [
-        new SignalWaveform('ecg', signalCanvas.height * 0.2, '#ff5459', 0.008),
-        new SignalWaveform('eeg', signalCanvas.height * 0.5, '#0066ff', 0.012),
-        new SignalWaveform('emg', signalCanvas.height * 0.8, '#39ff14', 0.015)
+        new SignalWaveform('biomedical', signalCanvas.height * 0.15, '#00ffff', 0.01),
+        new SignalWaveform('wireless', signalCanvas.height * 0.35, '#0066ff', 0.013),
+        new SignalWaveform('environmental', signalCanvas.height * 0.55, '#39ff14', 0.008),
+        new SignalWaveform('vehicles', signalCanvas.height * 0.75, '#ff6b35', 0.016),
+        new SignalWaveform('default', signalCanvas.height * 0.9, '#e91e63', 0.011)
     ];
 }
 
 // Countdown Timer
 function initializeCountdown() {
-    // Target date: October 16th, 2025 at 00:00:00
-    const targetDate = new Date('2025-10-16T00:00:00').getTime();
+    // Target date: September 25th, 2025 (Registration deadline)
+    const targetDate = new Date('2025-09-25T23:59:59').getTime();
     
     function updateCountdown() {
         const now = new Date().getTime();
@@ -331,19 +413,17 @@ function initializeCountdown() {
             animateNumber('minutes', minutes);
             animateNumber('seconds', seconds);
         } else {
-            // Countdown finished
-            animateNumber('days', 0);
-            animateNumber('hours', 0);
-            animateNumber('minutes', 0);
-            animateNumber('seconds', 0);
-            clearInterval(intervalId);
+            // Registration period ended
+            const regText = document.querySelector('.registration-info .reg-text');
+            if (regText) {
+                regText.textContent = 'Registration Period Ended';
+            }
         }
     }
     
     updateCountdown();
-    const intervalId = setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown, 1000);
 }
-
 
 function animateNumber(elementId, targetValue) {
     const element = document.getElementById(elementId);
@@ -358,10 +438,49 @@ function animateNumber(elementId, targetValue) {
         element.style.transform = 'scale(1.1)';
         setTimeout(() => {
             element.style.transform = 'scale(1)';
-        }, 200);
+        }, 300);
     }
 }
 
+// Problem Cards Expandable Functionality
+function initializeProblemCards() {
+    const problemCards = document.querySelectorAll('.problem-card');
+    
+    problemCards.forEach(card => {
+        const expandBtn = card.querySelector('.expand-btn');
+        const details = card.querySelector('.problem-details');
+        
+        if (expandBtn && details) {
+            expandBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isExpanded = expandBtn.getAttribute('data-expanded') === 'true';
+                
+                if (isExpanded) {
+                    // Collapse
+                    details.classList.remove('expanded');
+                    expandBtn.setAttribute('data-expanded', 'false');
+                    expandBtn.textContent = '+';
+                } else {
+                    // Expand
+                    details.classList.add('expanded');
+                    expandBtn.setAttribute('data-expanded', 'true');
+                    expandBtn.textContent = '−';
+                }
+                
+                // Add visual feedback
+                card.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 200);
+                
+                // Create particle burst effect
+                createParticleBurst(expandBtn);
+            });
+        }
+    });
+}
 
 // Scroll Animations
 function initializeScrollAnimations() {
@@ -382,19 +501,38 @@ function initializeScrollAnimations() {
                     animateCounter(entry.target);
                 }
                 
-                // Animate round items
-                if (entry.target.classList.contains('round-item')) {
+                // Animate structure items
+                if (entry.target.classList.contains('structure-item')) {
                     entry.target.classList.add('visible');
+                }
+                
+                // Add staggered animation for grids
+                if (entry.target.classList.contains('purpose-grid') || 
+                    entry.target.classList.contains('criteria-grid') ||
+                    entry.target.classList.contains('outcomes-grid')) {
+                    const cards = entry.target.querySelectorAll('.purpose-card, .criteria-card, .outcome-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
                 }
             }
         });
     }, observerOptions);
     
     // Observe elements for animation
-    document.querySelectorAll('.stat-item, .purpose-card, .track-card, .award-card, .round-item').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(50px)';
-        el.style.transition = 'all 0.8s ease';
+    const elementsToObserve = document.querySelectorAll('.stat-item, .purpose-card, .criteria-card, .outcome-card, .structure-item, .award-highlight, .purpose-grid, .criteria-grid, .outcomes-grid');
+    
+    elementsToObserve.forEach(el => {
+        if (!el.classList.contains('purpose-grid') && 
+            !el.classList.contains('criteria-grid') &&
+            !el.classList.contains('outcomes-grid')) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.8s ease';
+        }
         observer.observe(el);
     });
     
@@ -406,13 +544,16 @@ function initializeScrollAnimations() {
 
 function animateCounter(element) {
     const target = parseInt(element.dataset.target);
-    const duration = 2000; // 2 seconds
+    const duration = 2000;
     const start = performance.now();
     
     function updateCounter(currentTime) {
         const elapsed = currentTime - start;
         const progress = Math.min(elapsed / duration, 1);
-        const current = Math.floor(progress * target);
+        
+        // Easing function
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.floor(easeOutQuart * target);
         
         element.textContent = current;
         
@@ -426,7 +567,7 @@ function animateCounter(element) {
     requestAnimationFrame(updateCounter);
 }
 
-// Smooth Scrolling - FIXED
+// Smooth Scrolling
 function initializeSmoothScrolling() {
     document.querySelectorAll('.nav-links a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -437,33 +578,39 @@ function initializeSmoothScrolling() {
             const targetSection = document.getElementById(targetId);
             
             if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80; // Account for navbar
+                const offsetTop = targetSection.offsetTop - 80;
                 
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
                 });
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
             }
         });
     });
 }
 
-// Interactive Elements - FIXED
+// Interactive Elements
 function initializeInteractiveElements() {
-    let mouseX = 0;
-    let mouseY = 0;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
     
     // Track mouse movement for particle interactions
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
-        // Store mouse position for particle system
+        // Store mouse position globally
         window.mouseX = mouseX;
         window.mouseY = mouseY;
     });
     
-    // Register button interactions - FIXED
+    // Register button interactions
     const registerBtn = document.getElementById('register-btn');
     const floatingRegister = document.getElementById('floating-register');
     
@@ -471,6 +618,13 @@ function initializeInteractiveElements() {
         registerBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            
+            // Add click effect
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
             showRegistrationModal();
         });
     }
@@ -479,63 +633,84 @@ function initializeInteractiveElements() {
         floatingRegister.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            
+            // Add click effect
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
             showRegistrationModal();
         });
     }
     
-    // Track card hover effects
-    document.querySelectorAll('.track-card').forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.borderColor = 'rgba(0, 255, 255, 0.6)';
-            card.style.boxShadow = '0 30px 60px rgba(0, 255, 255, 0.2)';
+    // Brand logo click to scroll to top
+    const navBrand = document.querySelector('.nav-brand');
+    if (navBrand) {
+        navBrand.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.borderColor = 'rgba(0, 255, 255, 0.15)';
-            card.style.boxShadow = 'none';
-        });
-    });
+    }
     
-    // Navbar scroll effect
+    // Navbar scroll behavior
     let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+    
     window.addEventListener('scroll', () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const navbar = document.querySelector('.navbar');
         
         if (navbar) {
             if (scrollTop > lastScrollTop && scrollTop > 100) {
-                // Scrolling down
                 navbar.style.transform = 'translateY(-100%)';
             } else {
-                // Scrolling up
                 navbar.style.transform = 'translateY(0)';
             }
+            
+            // Add background opacity based on scroll
+            const opacity = Math.min(scrollTop / 100, 0.95);
+            navbar.style.background = `rgba(10, 10, 10, ${opacity})`;
         }
         
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });
     
-    // Floating action button scroll behavior
+    // Floating action button behavior
     const floatingBtn = document.getElementById('floating-register');
     if (floatingBtn) {
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
             
-            if (scrolled > 500) {
+            if (scrolled > 800) {
                 floatingBtn.style.opacity = '1';
-                floatingBtn.style.transform = `translateY(${rate * 0.1}px) scale(1)`;
+                floatingBtn.style.transform = 'scale(1)';
             } else {
                 floatingBtn.style.opacity = '0';
-                floatingBtn.style.transform = `translateY(${rate * 0.1}px) scale(0.8)`;
+                floatingBtn.style.transform = 'scale(0.8)';
             }
         });
     }
+    
+    // Add hover effects to track sections
+    const trackSections = document.querySelectorAll('.track-section');
+    trackSections.forEach(section => {
+        section.addEventListener('mouseenter', () => {
+            section.style.borderColor = 'rgba(0, 255, 255, 0.4)';
+            section.style.backgroundColor = 'rgba(0, 255, 255, 0.02)';
+        });
+        
+        section.addEventListener('mouseleave', () => {
+            section.style.borderColor = 'rgba(0, 255, 255, 0.1)';
+            section.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+        });
+    });
 }
 
-// Registration Modal - FIXED
+// Registration Modal
 function showRegistrationModal() {
-    // Remove any existing modals first
+    // Remove any existing modals
     const existingModals = document.querySelectorAll('.registration-modal');
     existingModals.forEach(modal => modal.remove());
     
@@ -548,67 +723,106 @@ function showRegistrationModal() {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        backdrop-filter: blur(10px);
+        background: rgba(0, 0, 0, 0.92);
+        backdrop-filter: blur(15px);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 10000;
-        animation: fadeIn 0.3s ease;
+        animation: modalFadeIn 0.4s ease;
     `;
     
     modal.innerHTML = `
-        <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px solid #00ffff; border-radius: 20px; padding: 3rem; max-width: 500px; width: 90%; text-align: center; position: relative; box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);">
-            <button id="close-modal" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: #00ffff; font-size: 2rem; cursor: pointer; transition: all 0.3s ease;">&times;</button>
-            <h2 style="color: #00ffff; margin-bottom: 2rem; font-size: 2rem; text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);">Registration Opening Soon!</h2>
-            <p style="color: #cccccc; margin-bottom: 2rem; line-height: 1.6;">
-                Registration for the Signal Processing Cup Challenge 2025 will open soon. 
-                Stay tuned for updates on our official channels.
-            </p>
+        <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px solid #00ffff; border-radius: 25px; padding: 3rem; max-width: 600px; width: 90%; text-align: center; position: relative; box-shadow: 0 0 60px rgba(0, 255, 255, 0.4); animation: modalSlideIn 0.4s ease;">
+            <button id="close-modal" style="position: absolute; top: 1rem; right: 1.5rem; background: none; border: none; color: #00ffff; font-size: 2.5rem; cursor: pointer; transition: all 0.3s ease; line-height: 1;">&times;</button>
+            
             <div style="margin-bottom: 2rem;">
-                <h3 style="color: #ff6b35; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);">Important Dates:</h3>
-                <ul style="text-align: left; color: #cccccc; list-style: none; padding: 0;">
-                    <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-                        <span style="position: absolute; left: 0; color: #00ffff;">→</span>
-                        PPT Screening: September 28, 2025
-                    </li>
-                    <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-                        <span style="position: absolute; left: 0; color: #00ffff;">→</span>
-                        Online Round: Sept - Oct 2, 2025
-                    </li>
-                    <li style="margin-bottom: 0.5rem; padding-left: 1rem; position: relative;">
-                        <span style="position: absolute; left: 0; color: #00ffff;">→</span>
-                        Final Round: Oct 16-17, 2025
-                    </li>
-                </ul>
+                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #00ffff, #0066ff); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; animation: iconPulse 2s infinite;">
+                    <span style="font-size: 2rem; color: #1a1a2e;">🚀</span>
+                </div>
             </div>
-            <button id="notify-btn" style="background: linear-gradient(135deg, #00ffff, #0066ff); color: #1a1a2e; padding: 1rem 2rem; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);">
-                Notify Me When Registration Opens
-            </button>
+            
+            <h2 style="color: #ffffff; margin-bottom: 1rem; font-size: 2.2rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);">Registration Opens Soon!</h2>
+            
+            <p style="color: #ffffff; margin-bottom: 2.5rem; line-height: 1.7; font-size: 1.1rem;">
+                Get ready for the most exciting signal processing challenge! Registration for the Signal Processing Cup Challenge 2025 will open during the specified dates.
+            </p>
+            
+            <div style="background: rgba(0, 0, 0, 0.4); border-radius: 15px; padding: 2rem; margin-bottom: 2rem;">
+                <h3 style="color: #ff6b35; margin-bottom: 1.5rem; text-shadow: 0 0 10px rgba(255, 107, 53, 0.5); font-size: 1.3rem;">📅 Important Dates</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
+                    <div style="background: rgba(0, 255, 255, 0.1); padding: 1rem; border-radius: 10px; border-left: 3px solid #00ffff;">
+                        <strong style="color: #00ffff;">Registration Period:</strong><br>
+                        <span style="color: #ffffff;">16-25 September 2025</span>
+                    </div>
+                    <div style="background: rgba(0, 102, 255, 0.1); padding: 1rem; border-radius: 10px; border-left: 3px solid #0066ff;">
+                        <strong style="color: #0066ff;">Grand Demo Day:</strong><br>
+                        <span style="color: #ffffff;">16-17 October 2025</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button id="notify-btn" style="background: linear-gradient(135deg, #00ffff, #0066ff); color: #1a1a2e; padding: 1rem 2rem; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 0 25px rgba(0, 255, 255, 0.4); position: relative; overflow: hidden;">
+                    <span style="position: relative; z-index: 1;">🔔 Notify Me</span>
+                </button>
+                <button id="learn-more-btn" style="background: rgba(255, 107, 53, 0.1); color: #ff6b35; padding: 1rem 2rem; border: 2px solid #ff6b35; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s ease;">
+                    📖 Learn More
+                </button>
+            </div>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0, 255, 255, 0.2);">
+                <h4 style="color: #39ff14; margin-bottom: 1rem;">🏆 What You Can Win</h4>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">💰</span>
+                        <span style="color: #ffffff; font-size: 0.9rem;">Cash Prizes</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">🏅</span>
+                        <span style="color: #ffffff; font-size: 0.9rem;">Certificates</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">🤝</span>
+                        <span style="color: #ffffff; font-size: 0.9rem;">Recognition</span>
+                    </div>
+                </div>
+            </div>
         </div>
     `;
     
-    // Add fade in animation
+    // Add animations
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .registration-modal > div {
-            animation: fadeIn 0.3s ease;
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: scale(0.8) translateY(-50px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes modalFadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.9); }
         }
     `;
     document.head.appendChild(style);
     
     document.body.appendChild(modal);
     
-    // Close modal functionality
+    // Event listeners
     const closeBtn = modal.querySelector('#close-modal');
     const notifyBtn = modal.querySelector('#notify-btn');
+    const learnMoreBtn = modal.querySelector('#learn-more-btn');
     
-    closeBtn.addEventListener('click', () => {
-        modal.style.animation = 'fadeOut 0.3s ease';
+    closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.animation = 'modalFadeOut 0.3s ease';
         setTimeout(() => {
             if (modal.parentNode) {
                 modal.parentNode.removeChild(modal);
@@ -616,13 +830,29 @@ function showRegistrationModal() {
         }, 300);
     });
     
-    // Notify button
-    notifyBtn.addEventListener('click', () => {
-        notifyBtn.textContent = '✓ You\'ll be notified!';
+    notifyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        notifyBtn.innerHTML = '<span style="position: relative; z-index: 1;">✅ You\'ll be notified!</span>';
         notifyBtn.style.background = 'linear-gradient(135deg, #39ff14, #00ff7f)';
+        
+        // Add particle burst effect
+        createParticleBurst(notifyBtn);
+        
         setTimeout(() => {
             closeBtn.click();
-        }, 1500);
+        }, 2000);
+    });
+    
+    learnMoreBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeBtn.click();
+        setTimeout(() => {
+            // Scroll to tracks section
+            const tracksSection = document.getElementById('tracks');
+            if (tracksSection) {
+                tracksSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 300);
     });
     
     // Close on outside click
@@ -640,6 +870,31 @@ function showRegistrationModal() {
         }
     };
     document.addEventListener('keydown', handleEscape);
+    
+    // Create particle burst when modal opens
+    setTimeout(() => {
+        createParticleBurst(modal.querySelector('h2'));
+    }, 400);
+}
+
+// Particle burst effect
+function createParticleBurst(element) {
+    if (!element || !particleSystem) return;
+    
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Add temporary particles for burst effect
+    for (let i = 0; i < 15; i++) {
+        const angle = (i / 15) * Math.PI * 2;
+        const velocity = 3 + Math.random() * 2;
+        const particle = new Particle(centerX, centerY, 'innovation');
+        particle.vx = Math.cos(angle) * velocity;
+        particle.vy = Math.sin(angle) * velocity;
+        particle.life = 0.8;
+        particleSystem.push(particle);
+    }
 }
 
 // Main Animation Loop
@@ -661,11 +916,24 @@ function startAnimationLoop() {
         const mouseX = window.mouseX || particlesCanvas.width / 2;
         const mouseY = window.mouseY || particlesCanvas.height / 2;
         
-        if (particleSystem) {
-            particleSystem.forEach(particle => {
+        if (particleSystem && particleSystem.length > 0) {
+            // Remove dead particles and update living ones
+            particleSystem = particleSystem.filter(particle => {
                 particle.update(mouseX, mouseY);
                 particle.draw(particlesCtx);
+                return particle.life > 0;
             });
+            
+            // Maintain minimum particle count
+            while (particleSystem.length < 60) {
+                const types = ['biomedical', 'wireless', 'environmental', 'vehicles', 'innovation', 'default'];
+                const randomType = types[Math.floor(Math.random() * types.length)];
+                particleSystem.push(new Particle(
+                    Math.random() * particlesCanvas.width,
+                    Math.random() * particlesCanvas.height,
+                    randomType
+                ));
+            }
         }
         
         animationId = requestAnimationFrame(animate);
@@ -678,10 +946,9 @@ function startAnimationLoop() {
 window.addEventListener('resize', () => {
     resizeCanvas();
     
-    // Reinitialize particle system with new canvas size
-    if (particleSystem) {
-        particleSystem = [];
-        initializeParticleSystem();
+    // Reinitialize signal waveforms
+    if (signalWaveforms.length > 0) {
+        initializeSignalWaveforms();
     }
 });
 
@@ -696,35 +963,35 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
-// Add some interactive easter eggs
+// Easter eggs and interactions
 let clickCount = 0;
 document.addEventListener('click', (e) => {
     clickCount++;
     
     // Add particle burst on click
     if (particleSystem && particleSystem.length < 100) {
-        for (let i = 0; i < 5; i++) {
-            const types = ['ecg', 'eeg', 'medical'];
+        for (let i = 0; i < 8; i++) {
+            const types = ['biomedical', 'wireless', 'environmental', 'vehicles', 'innovation'];
             const randomType = types[Math.floor(Math.random() * types.length)];
-            particleSystem.push(new Particle(
-                e.clientX + (Math.random() - 0.5) * 50,
-                e.clientY + (Math.random() - 0.5) * 50,
-                randomType
-            ));
+            const angle = (i / 8) * Math.PI * 2;
+            const particle = new Particle(e.clientX, e.clientY, randomType);
+            particle.vx = Math.cos(angle) * 2;
+            particle.vy = Math.sin(angle) * 2;
+            particleSystem.push(particle);
         }
     }
     
     // Special effect after multiple clicks
-    if (clickCount === 10) {
-        document.body.style.filter = 'hue-rotate(180deg)';
+    if (clickCount === 15) {
+        document.body.style.filter = 'hue-rotate(180deg) saturate(1.5)';
         setTimeout(() => {
             document.body.style.filter = 'none';
             clickCount = 0;
-        }, 2000);
+        }, 3000);
     }
 });
 
-// Add keyboard shortcuts
+// Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
     switch(e.key) {
         case 'r':
@@ -734,16 +1001,36 @@ document.addEventListener('keydown', (e) => {
             showRegistrationModal();
             break;
         case 'Escape':
-            // Close any open modals
             const modals = document.querySelectorAll('.registration-modal');
             modals.forEach(modal => {
                 if (modal.parentNode) modal.parentNode.removeChild(modal);
             });
             break;
+        case ' ': // Spacebar
+            if (e.target === document.body) {
+                e.preventDefault();
+                // Add burst of particles
+                for (let i = 0; i < 20; i++) {
+                    const types = ['biomedical', 'wireless', 'environmental', 'vehicles', 'innovation'];
+                    const randomType = types[Math.floor(Math.random() * types.length)];
+                    particleSystem.push(new Particle(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight,
+                        randomType
+                    ));
+                }
+            }
+            break;
     }
 });
 
-console.log('🚀 Signal Processing Cup Challenge 2025 - Interactive Website Loaded!');
+// Console messages
+console.log('🚀 SPS CUP 2025 - Signal Processing Cup Challenge - Interactive Website Loaded!');
 console.log('💡 Press "R" to open registration modal');
 console.log('🎨 Click anywhere to create particle effects');
-console.log('⚡ Built with love for biomedical signal processing');
+console.log('⚡ Press Spacebar for particle burst');
+console.log('🔬 Built with passion for signal processing innovation');
+
+// Initialize mouse position
+window.mouseX = window.innerWidth / 2;
+window.mouseY = window.innerHeight / 2;
