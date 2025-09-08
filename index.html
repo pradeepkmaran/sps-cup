@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signal Processing Cup Challenge 2025</title>
+    <title>SPS CUP 2025 - Signal Processing Challenge</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
     <!-- Background Animations -->
@@ -13,568 +15,417 @@
         <canvas id="particles-canvas"></canvas>
     </div>
 
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-signal"></div>
+            <h2>Loading Signal Processing Cup 2025</h2>
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-brand">SPS CUP 2025</div>
-            <div class="nav-links">
-                <a href="#overview" data-scroll="overview">Overview</a>
-                <a href="#purpose" data-scroll="purpose">Purpose</a>
-                <a href="#tracks" data-scroll="tracks">Tracks</a>
-                <a href="#structure" data-scroll="structure">Structure</a>
-                <a href="#awards" data-scroll="awards">Awards</a>
+            <div class="nav-brand">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L28 8v16L16 30L4 24V8L16 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M8 12L16 16L24 12M16 16v8" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>SPS CUP 2025</span>
             </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="nav-links desktop-nav">
+                <a href="#" data-page="home" class="nav-link active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9,22 9,12 15,12 15,22"/>
+                    </svg>
+                    Home
+                </a>
+                <a href="#" data-page="overview" class="nav-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    Overview
+                </a>
+                <a href="#" data-page="tracks" class="nav-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <rect x="7" y="7" width="3" height="9"/>
+                        <rect x="14" y="7" width="3" height="5"/>
+                    </svg>
+                    Tracks
+                </a>
+                <a href="#" data-page="timeline" class="nav-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Timeline
+                </a>
+                <a href="#" data-page="guidelines" class="nav-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    Guidelines
+                </a>
+                <a href="#" data-page="contact" class="nav-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    Contact
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line white-title">Signal Processing</span>
-                <span class="title-line white-title">Cup Challenge</span>
-            </h1>
-            <p class="hero-subtitle">A National-Level Innovation Challenge</p>
-            <div class="organizers">
-                <span>IEEE Madras Section & SSN College of Engineering, Chennai</span>
+    <!-- Mobile Side Navigation -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+    <nav class="mobile-nav" id="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="mobile-nav-brand">
+                <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L28 8v16L16 30L4 24V8L16 2z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M8 12L16 16L24 12M16 16v8" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                SPS CUP 2025
             </div>
-            <div class="countdown-container">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">0</span>
-                    <span class="countdown-label">Days</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">0</span>
-                    <span class="countdown-label">Hours</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">0</span>
-                    <span class="countdown-label">Minutes</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">0</span>
-                    <span class="countdown-label">Seconds</span>
-                </div>
-            </div>
-            <div class="registration-info">
-                <span class="reg-text">Registration: 16-25 September 2025</span>
-            </div>
-            <button class="btn btn--primary btn--lg cta-button" id="register-btn">
-                Register Now
-                <div class="pulse-ring"></div>
+            <button class="mobile-nav-close" id="mobile-nav-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
             </button>
         </div>
-        <div class="signal-waveforms">
-            <div class="waveform ecg-wave"></div>
-            <div class="waveform eeg-wave"></div>
-            <div class="waveform emg-wave"></div>
-            <div class="waveform wifi-wave"></div>
-            <div class="waveform seismic-wave"></div>
+        <div class="mobile-nav-links">
+            <a href="#" data-page="home" class="mobile-nav-link active">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                <span>Home</span>
+            </a>
+            <a href="#" data-page="overview" class="mobile-nav-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+                <span>Overview</span>
+            </a>
+            <a href="#" data-page="tracks" class="mobile-nav-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <rect x="7" y="7" width="3" height="9"/>
+                    <rect x="14" y="7" width="3" height="5"/>
+                </svg>
+                <span>Tracks</span>
+            </a>
+            <a href="#" data-page="timeline" class="mobile-nav-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span>Timeline</span>
+            </a>
+            <a href="#" data-page="guidelines" class="mobile-nav-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14,2 14,8 20,8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10,9 9,9 8,9"/>
+                </svg>
+                <span>Guidelines</span>
+            </a>
+            <a href="#" data-page="contact" class="mobile-nav-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                <span>Contact</span>
+            </a>
         </div>
-    </section>
+    </nav>
 
-    <!-- Overview Section -->
-    <section id="overview" class="section">
-        <div class="container">
-            <h2 class="section-title">Overview</h2>
-            <div class="overview-content">
-                <p class="section-description">
-                    The Signal Processing Cup Challenge is a national-level innovation challenge organized by IEEE Madras Section and SSN College of Engineering, Chennai with five tracks: Biomedical Signal Processing : Brain Computer Interface (BCI), Wireless Sensing: Wi-Fi Vision, Environmental & Geospatial Signal Processing, Electronic Vehicles and Student Innovation. Participants in teams of 3–4 will tackle real-world problem statements ranging from brain-computer interfaces and Wi-Fi vision to seismic analysis, EV motor diagnostics, and beyond.
-                </p>
-                <div class="stats-container">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="5">0</div>
-                        <div class="stat-label">Challenge Tracks</div>
+    <!-- Page Container -->
+    <div id="page-container" class="page-container">
+        
+        <!-- Home Page -->
+        <div id="page-home" class="page active">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-line">Signal Processing</span>
+                        <span class="title-line accent">Cup Challenge</span>
+                    </h1>
+                    <p class="hero-subtitle">A National-Level Innovation Challenge</p>
+                    <div class="organizers">
+                        <span>IEEE Madras Section & SSN College of Engineering, Chennai</span>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="11">0</div>
-                        <div class="stat-label">Problem Statements</div>
+                    
+                    <div class="countdown-container">
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="days">00</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="hours">00</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="minutes">00</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="seconds">00</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="3">0</div>
-                        <div class="stat-label">Competition Stages</div>
+                    
+                    <div class="registration-info">
+                        <span class="reg-text">Registration: 16-25 September 2025</span>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="4">0</div>
-                        <div class="stat-label">Max Team Size</div>
+                    
+                    <div class="hero-highlights">
+                        <div class="highlight-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <rect x="7" y="7" width="3" height="9"/>
+                                <rect x="14" y="7" width="3" height="5"/>
+                            </svg>
+                            <span>5 Challenging Tracks</span>
+                        </div>
+                        <div class="highlight-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span>National Level Competition</span>
+                        </div>
+                        <div class="highlight-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="8" cy="8" r="6"/>
+                                <path d="m13 13 5 5"/>
+                                <path d="M12 8h.01"/>
+                                <path d="M8 12h.01"/>
+                                <path d="M8 16h.01"/>
+                            </svg>
+                            <span>Cash Prizes & Certificates</span>
+                        </div>
+                        <div class="highlight-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="m22 21-3-3"/>
+                                <circle cx="17" cy="17" r="3"/>
+                            </svg>
+                            <span>Industry Expert Judges</span>
+                        </div>
                     </div>
+
+                    <button class="btn btn--primary btn--lg cta-button" id="register-btn">
+                        Register Now
+                        <div class="pulse-ring"></div>
+                    </button>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
 
-    <!-- Purpose Section -->
-    <section id="purpose" class="section">
-        <div class="container">
-            <h2 class="section-title">Purpose</h2>
-            <div class="purpose-content">
-                <div class="purpose-grid">
-                    <div class="purpose-card">
-                        <div class="track-icon innovation-icon">🚀</div>
-                        <h3>Foster Innovation</h3>
-                        <p>Foster innovation in the field of signal processing</p>
+        <!-- Overview Page -->
+        <div id="page-overview" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="#" data-page="home">Home</a>
+                        <span>/</span>
+                        <span>Overview</span>
                     </div>
-                    <div class="purpose-card">
-                        <div class="track-icon problem-icon">🎯</div>
-                        <h3>Real-World Problems</h3>
-                        <p>Encourage students to solve real-world, interdisciplinary problems</p>
-                    </div>
-                    <div class="purpose-card">
-                        <div class="track-icon skills-icon">⚡</div>
-                        <h3>Showcase Skills</h3>
-                        <p>Provide a platform for showcasing creativity, research, and technical skills</p>
-                    </div>
-                    <div class="purpose-card">
-                        <div class="track-icon collaboration-icon">🤝</div>
-                        <h3>Promote Collaboration</h3>
-                        <p>Promote collaboration across diverse academic backgrounds</p>
-                    </div>
-                    <div class="purpose-card">
-                        <div class="track-icon solutions-icon">💡</div>
-                        <h3>Scalable Solutions</h3>
-                        <p>Drive solutions that are scalable, cost-effective, and impactful</p>
-                    </div>
-                    <div class="purpose-card">
-                        <div class="track-icon recognition-icon">🏆</div>
-                        <h3>Recognize Excellence</h3>
-                        <p>Recognize and reward outstanding projects with practical societal value</p>
-                    </div>
-                    <div class="purpose-card centered-card">
-                        <div class="track-icon inspire-icon">✨</div>
-                        <h3>Inspire Innovation</h3>
-                        <p>Inspire the next generation of engineers and innovators through competition and hands-on problem solving</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                    
+                    <h1 class="section-title">Overview</h1>
+                    
+                    <div class="overview-content">
+                        <p class="section-description">
+                            The Signal Processing Cup Challenge is a national-level innovation challenge organized by IEEE Madras Section and SSN College of Engineering, Chennai with five tracks: Biomedical Signal Processing : Brain Computer Interface (BCI), Wireless Sensing: Wi-Fi Vision, Environmental & Geospatial Signal Processing, Electronic Vehicles and Student Innovation.
+                        </p>
 
-    <!-- Tracks Section -->
-    <section id="tracks" class="section">
-        <div class="container">
-            <h2 class="section-title">Tracks & Problem Statements</h2>
-            <div class="tracks-container">
-                
-                <!-- Track 1: Biomedical Signal Processing -->
-                <div class="track-section" data-track="biomedical">
-                    <div class="track-header">
-                        <div class="track-icon biomedical-icon">🧠</div>
-                        <h3>Biomedical Signal Processing: Brain Computer Interface (BCI)</h3>
-                    </div>
-                    <div class="problems-grid">
-                        <div class="problem-card" data-problem="motor-imagery">
-                            <div class="problem-header">
-                                <h4>Motor Imagery EEG Control</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Design a system that decodes motor imagery from EEG signals to allow hands-free control interfaces. Build a signal processing pipeline that classifies multi-channel EEG data based on imagined limb movements, such as left hand versus right hand.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Build a signal processing pipeline that classifies multi-channel EEG data based on imagined limb movements, such as left hand versus right hand. The solution should include preprocessing, like filtering and artifact removal, feature extraction, such as CSP(Common Spatial Patterns) and wavelet transforms, and classification, using methods like SVM(Support Vector Machine) and CNN(Convolutional Neural Network). There are bonus points for real-time implementation or integration with a virtual interface.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="problem-card" data-problem="emotional-state">
-                            <div class="problem-header">
-                                <h4>Emotional State Recognition</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Develop a model that identifies emotional states using EEG signals to support mental health monitoring and user interfaces that adjust to needs. Create a system that processes EEG data to classify emotional states, including happiness, stress, or calmness.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Create a system that processes EEG data to classify emotional states, including happiness, stress, or calmness. Use publicly available datasets, such as DEAP and DREAMER, and apply techniques like frequency band analysis, entropy measures, and machine learning classifiers. Focus on making the results easy to interpret and reliable across different subjects.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="problem-card" data-problem="cognitive-workload">
-                            <div class="problem-header">
-                                <h4>Cognitive Workload Estimation</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Estimate cognitive workload from EEG signals to improve human-computer interaction and learning systems. Design a pipeline that analyzes EEG recordings to measure cognitive load during tasks, such as problem-solving or multitasking.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Design a pipeline that analyzes EEG recordings to measure cognitive load during tasks, such as problem-solving or multitasking. Include preprocessing, feature engineering, like theta/beta ratio and spectral power, and use regression or classification models. Consider adding real-time feedback mechanisms or integration with adaptive systems.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 2: Wireless Sensing -->
-                <div class="track-section" data-track="wireless">
-                    <div class="track-header">
-                        <div class="track-icon wireless-icon">📶</div>
-                        <h3>Wireless Sensing: Wi-Fi Vision</h3>
-                    </div>
-                    <div class="problems-grid">
-                        <div class="problem-card centered-card" data-problem="device-free">
-                            <div class="problem-header">
-                                <h4>Device-Free Activity Recognition</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Use Channel State Information (CSI) extracted from standard Wi-Fi packets to detect and classify human activities in a room (e.g., walking, sitting, waving) without using cameras or wearables.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Use Channel State Information (CSI) extracted from standard Wi-Fi packets to detect and classify human activities in a room (e.g., walking, sitting, waving) without using cameras or wearables. Focus on signal processing techniques for CSI analysis and machine learning models for activity classification.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 3: Environmental & Geospatial -->
-                <div class="track-section" data-track="environmental">
-                    <div class="track-header">
-                        <div class="track-icon environmental-icon">🌍</div>
-                        <h3>Environmental & Geospatial Signal Processing</h3>
-                    </div>
-                    <div class="problems-grid">
-                        <div class="problem-card" data-problem="seismic">
-                            <div class="problem-header">
-                                <h4>Seismic Event Classifier</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Identify earthquakes by clear P and S arrivals, emergent onset, long coda, and strong low-frequency surface waves. Detect explosions through impulsive P waves, weak or absent S waves, short duration, and high-frequency content.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Classify different types of seismic events and distinguish them from urban noise. Identify earthquakes by clear P and S arrivals, emergent onset, long coda, and strong low-frequency surface waves. Detect explosions through impulsive P waves, weak or absent S waves, short duration, and high-frequency content. Recognize urban noise as continuous, high-frequency, repetitive signals without distinct seismic phases.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="problem-card" data-problem="acoustic">
-                            <div class="problem-header">
-                                <h4>Acoustic Source Localization</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Set up an array of microphones at precisely known positions in the environment. Record the sound signal as it reaches each microphone. Calculate the Time Difference of Arrival (TDOA) of the sound between microphones.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Set up an array of microphones at precisely known positions in the environment. Record the sound signal as it reaches each microphone. Carefully calculate the Time Difference of Arrival (TDOA) of the sound between microphones. Use these time delays to estimate relative distances from the source. Finally, apply triangulation or multilateration techniques to accurately determine and pinpoint the physical location of the sound source.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="problem-card" data-problem="deforestation">
-                            <div class="problem-header">
-                                <h4>Deforestation Detector with Radar Imagery</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Collect time-series Synthetic Aperture Radar (SAR) satellite images of the target region. Preprocess the imagery to remove noise and align datasets. Compare images across different time intervals to identify significant changes.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Collect time-series Synthetic Aperture Radar (SAR) satellite images of the target region. Preprocess the imagery to remove noise and align datasets. Compare images across different time intervals to identify significant changes in backscatter patterns. Detect anomalies indicating vegetation loss. Highlight and map these areas to pinpoint recent deforestation accurately.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 4: Electronic Vehicles -->
-                <div class="track-section" data-track="vehicles">
-                    <div class="track-header">
-                        <div class="track-icon vehicles-icon">🔋</div>
-                        <h3>Electronic Vehicles</h3>
-                    </div>
-                    <div class="problems-grid">
-                        <div class="problem-card" data-problem="inverter">
-                            <div class="problem-header">
-                                <h4>Inverter Fault Detection</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Build a system that detects inverter faults in EVs by analyzing current and voltage waveforms. The pipeline should include preprocessing signals with filtering and denoising methods and extracting features using FFT, Wavelet Transform, and time-frequency analysis.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Build a system that detects inverter faults in EVs by analyzing current and voltage waveforms. The pipeline should include: Preprocessing signals with filtering and denoising methods. Extracting features using FFT, Wavelet Transform, and time-frequency analysis to spot harmonic distortions, short circuits, or switching faults. Using adaptive filtering to separate fault signals from normal noise. Classifying faults with machine learning models for real-time detection. Integrating with onboard vehicle control units for alerts and cloud dashboards for fleet monitoring.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="problem-card" data-problem="motor">
-                            <div class="problem-header">
-                                <h4>Electric Motor Condition Monitoring</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Develop a signal processing pipeline that continuously checks EV motor health using stator current, vibration, and sound emission signals. Use Envelope Detection, Hilbert-Huang Transform, and Spectrogram analysis.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Develop a signal processing pipeline that continuously checks EV motor health using stator current, vibration, and sound emission signals. The system should: Preprocess signals to cut down noise and improve the signal-to-noise ratio. Use Envelope Detection, Hilbert-Huang Transform, and Spectrogram analysis to pull out fault-specific features. Detects issues like bearing wear, rotor misalignment, and insulation breakdown. Implement real-time anomaly classification using AI/ML models like SVM and CNN. Offer predictive insights for preventive maintenance and less downtime.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="problem-card" data-problem="road">
-                            <div class="problem-header">
-                                <h4>Road Condition Classification</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Develop a road-condition classification system for EVs using vibration signal processing. Acquire vibration signals from accelerometers attached to the suspension and chassis using time-frequency analysis.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Develop a road-condition classification system for EVs using vibration signal processing. The system should acquire vibration signals from accelerometers attached to the suspension and chassis. Use time-frequency analysis, such as STFT and Wavelet Transforms, to classify road conditions like smooth, rough, potholes, wet, or gravel. Connect vibration patterns with tire-road interaction for better suspension control. Enable adaptive ride comfort and proactive safety features like auto-braking and traction control. Support integration with EV fleet management for optimizing routes.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Track 5: Student Innovation -->
-                <div class="track-section" data-track="innovation">
-                    <div class="track-header">
-                        <div class="track-icon innovation-track-icon">💡</div>
-                        <h3>Student Innovation</h3>
-                    </div>
-                    <div class="problems-grid">
-                        <div class="problem-card centered-card" data-problem="open">
-                            <div class="problem-header">
-                                <h4>Open Innovation Track</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
-                            </div>
-                            <p class="problem-description">Propose your own innovative signal processing solution to address real-world challenges. This track encourages creative thinking and novel applications of signal processing techniques across any domain.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>This track is open for students to propose their own innovative signal processing solutions addressing real-world challenges. Solutions should demonstrate novelty, technical depth, and practical impact. Teams are encouraged to explore cutting-edge applications and interdisciplinary approaches to signal processing.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Formation Section -->
-    <section id="team" class="section">
-        <div class="container">
-            <h2 class="section-title">Team Formation</h2>
-            <div class="team-content">
-                <div class="team-requirements">
-                    <div class="requirement-item">
-                        <div class="track-icon team-size-icon">👥</div>
-                        <div class="req-content">
-                            <strong>Team Size:</strong> 3 to 4 members per team
-                        </div>
-                    </div>
-                    <div class="requirement-item">
-                        <div class="track-icon diversity-icon">🌐</div>
-                        <div class="req-content">
-                            <strong>Diversity:</strong> Team members can be from different academic backgrounds
-                        </div>
-                    </div>
-                    <div class="requirement-item">
-                        <div class="track-icon track-selection-icon">🎯</div>
-                        <div class="req-content">
-                            <strong>Track Selection:</strong> Each team selects one track to compete in
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Structure Section -->
-    <section id="structure" class="section">
-        <div class="container">
-            <h2 class="section-title">Hackathon Structure</h2>
-            <div class="structure-timeline">
-                <div class="structure-item">
-                    <div class="structure-number">01</div>
-                    <div class="structure-content">
-                        <h3>Round 1: Idea Submission (Online)</h3>
-                        <div class="structure-details">
-                            <p>Submit presentations based on the provided template. Evaluated for novelty, feasibility, cost effectiveness and scalability.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="structure-item">
-                    <div class="structure-number">02</div>
-                    <div class="structure-content">
-                        <h3>Grand Demo Day (Offline – Top 10 Teams)</h3>
-                        <div class="structure-date">16th and 17th October 2025</div>
-                        <div class="structure-location">Sri Sivasubramaniya Nadar College of Engineering</div>
-                        <div class="structure-details">
-                            <div class="sub-rounds">
-                                <div class="sub-round">
-                                    <strong>Round 1:</strong> Implementation and setup with suggestions until 4pm, evaluation at 5pm
+                        <div class="objectives-section">
+                            <h2>Challenge Objectives</h2>
+                            <div class="objectives-grid">
+                                <div class="objective-card">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                        <path d="m22 21-3-3"/>
+                                        <circle cx="17" cy="17" r="3"/>
+                                    </svg>
+                                    <h3>Team Collaboration</h3>
+                                    <p>Participants in teams of 3–4 will tackle real-world problem statements</p>
                                 </div>
-                                <div class="sub-round">
-                                    <strong>Round 2:</strong> Implementation of changes and suggestions, judged at 1pm
+                                
+                                <div class="objective-card">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0-6 0"/>
+                                        <path d="M17.657 16.657 13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"/>
+                                    </svg>
+                                    <h3>Multi-Stage Competition</h3>
+                                    <p>Competition spans three stages: online idea submission, virtual pitch presentations, and offline Grand Demo Day</p>
                                 </div>
-                                <div class="sub-round">
-                                    <strong>Round 3:</strong> Final review by External Jury at 9am on second day
+                                
+                                <div class="objective-card">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                    </svg>
+                                    <h3>Recognition & Rewards</h3>
+                                    <p>Entries judged on innovation, feasibility, scalability, and execution. Top teams receive cash prizes, certificates, and recognition</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="organizers-section">
+                            <h2>Organizers</h2>
+                            <div class="organizer-cards">
+                                <div class="organizer-card primary">
+                                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                        <rect x="7" y="7" width="3" height="9"/>
+                                        <rect x="14" y="7" width="3" height="5"/>
+                                    </svg>
+                                    <h3>IEEE Madras Section</h3>
+                                    <p>Primary Organizer</p>
+                                </div>
+                                
+                                <div class="organizer-card host">
+                                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                                        <polyline points="9,22 9,12 15,12 15,22"/>
+                                    </svg>
+                                    <h3>SSN College of Engineering, Chennai</h3>
+                                    <p>Host Institution</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
 
-    <!-- Guidelines Section -->
-    <section id="guidelines" class="section">
-        <div class="container">
-            <h2 class="section-title">Guidelines & Selection Criteria</h2>
-            <div class="guidelines-content">
-                <div class="criteria-grid">
-                    <div class="criteria-card">
-                        <div class="track-icon novelty-icon">⭐</div>
-                        <h4>Novelty and Originality</h4>
-                        <p>Novelty and originality of the proposed solution</p>
+        <!-- Tracks Page -->
+        <div id="page-tracks" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="#" data-page="home">Home</a>
+                        <span>/</span>
+                        <span>Tracks</span>
                     </div>
-                    <div class="criteria-card">
-                        <div class="track-icon complexity-icon">🔧</div>
-                        <h4>Technical Complexity</h4>
-                        <p>Complexity and depth of technical approach</p>
-                    </div>
-                    <div class="criteria-card">
-                        <div class="track-icon clarity-icon">📝</div>
-                        <h4>Clarity & Structure</h4>
-                        <p>Clarity, structure, and details in submission format</p>
-                    </div>
-                    <div class="criteria-card">
-                        <div class="track-icon feasibility-icon">✅</div>
-                        <h4>Feasibility</h4>
-                        <p>Feasibility of implementation with available resources</p>
-                    </div>
-                    <div class="criteria-card">
-                        <div class="track-icon sustainability-icon">♻️</div>
-                        <h4>Sustainability</h4>
-                        <p>Sustainability of the solution over time</p>
-                    </div>
-                    <div class="criteria-card">
-                        <div class="track-icon scalability-icon">📈</div>
-                        <h4>Scalability</h4>
-                        <p>Scalability of the solution</p>
+                    
+                    <h1 class="section-title">Competition Tracks</h1>
+                    <p class="section-subtitle">Choose your challenge and innovate</p>
+                    
+                    <div class="tracks-grid" id="tracks-grid">
+                        <!-- Tracks will be dynamically loaded here -->
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
 
-    <!-- Rules Section -->
-    <section id="rules" class="section">
-        <div class="container">
-            <h2 class="section-title">General Rules</h2>
-            <div class="rules-list">
-                <div class="rule-item">
-                    <div class="rule-number">1</div>
-                    <div class="rule-content">Projects must be developed during the hackathon period</div>
-                </div>
-                <div class="rule-item">
-                    <div class="rule-number">2</div>
-                    <div class="rule-content">Use of open-source or existing code must be declared</div>
-                </div>
-                <div class="rule-item">
-                    <div class="rule-number">3</div>
-                    <div class="rule-content">All team members must be present for evaluations</div>
-                </div>
-                <div class="rule-item">
-                    <div class="rule-number">4</div>
-                    <div class="rule-content">Plagiarism will lead to disqualification</div>
-                </div>
-                <div class="rule-item">
-                    <div class="rule-number">5</div>
-                    <div class="rule-content">Respect deadlines and conduct</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Awards Section -->
-    <section id="awards" class="section">
-        <div class="container">
-            <h2 class="section-title">Awards & Recognition</h2>
-            <div class="awards-content">
-                <div class="awards-info">
-                    <div class="award-highlight">
-                        <div class="track-icon trophy-icon">🏆</div>
-                        <div class="award-details">
-                            <h3>Track Winners</h3>
-                            <p>Top 2 teams from each track receive cash prizes and certificates</p>
-                        </div>
+        <!-- Timeline Page -->
+        <div id="page-timeline" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="#" data-page="home">Home</a>
+                        <span>/</span>
+                        <span>Timeline</span>
                     </div>
-                    <div class="award-highlight">
-                        <div class="track-icon certificate-icon">🎓</div>
-                        <div class="award-details">
-                            <h3>Participation Recognition</h3>
-                            <p>Participation certificates for all shortlisted teams in the final round</p>
-                        </div>
+                    
+                    <h1 class="section-title">Competition Timeline</h1>
+                    <p class="section-subtitle">From submission to Grand Demo Day</p>
+                    
+                    <div class="timeline-container" id="timeline-container">
+                        <!-- Timeline will be dynamically loaded here -->
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
 
-    <!-- Expected Outcomes Section -->
-    <section id="outcomes" class="section">
-        <div class="container">
-            <h2 class="section-title">Expected Outcomes</h2>
-            <div class="outcomes-grid">
-                <div class="outcome-card">
-                    <div class="track-icon culture-icon">🌟</div>
-                    <h4>Innovation Culture</h4>
-                    <p>Encourages a culture of innovation and problem-solving among students</p>
-                </div>
-                <div class="outcome-card">
-                    <div class="track-icon learning-icon">📚</div>
-                    <h4>Hands-on Learning</h4>
-                    <p>Provides hands-on learning experience in applying theoretical concepts</p>
-                </div>
-                <div class="outcome-card">
-                    <div class="track-icon teamwork-icon">🤝</div>
-                    <h4>Teamwork Skills</h4>
-                    <p>Strengthens teamwork, leadership, and collaboration skills</p>
-                </div>
-                <div class="outcome-card">
-                    <div class="track-icon exposure-icon">🔬</div>
-                    <h4>Industry Exposure</h4>
-                    <p>Builds exposure to real-world industry problems and research trends</p>
-                </div>
-                <div class="outcome-card">
-                    <div class="track-icon communication-icon">💬</div>
-                    <h4>Communication Skills</h4>
-                    <p>Enhances presentation, communication, and pitching abilities</p>
-                </div>
-                <div class="outcome-card">
-                    <div class="track-icon networking-icon">🌐</div>
-                    <h4>Networking</h4>
-                    <p>Offers opportunities for networking with peers, mentors, and professionals</p>
-                </div>
-                <div class="outcome-card">
-                    <div class="track-icon career-icon">🚀</div>
-                    <h4>Career Inspiration</h4>
-                    <p>Inspires participants to pursue future research, startups, or career paths</p>
-                </div>
-                <div class="outcome-card">
-                    <div class="track-icon community-icon">🌍</div>
-                    <h4>Innovation Community</h4>
-                    <p>Contributes to the creation of a community of innovators capable of addressing global challenges</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Signal Processing Cup Challenge 2025</h4>
-                    <p>Advancing innovation through signal processing challenges</p>
-                    <div class="important-dates">
-                        <p><strong>Registration:</strong> 16-25 September 2025</p>
-                        <p><strong>Grand Finale:</strong> 16-17 October 2025</p>
+        <!-- Guidelines Page -->
+        <div id="page-guidelines" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="#" data-page="home">Home</a>
+                        <span>/</span>
+                        <span>Guidelines</span>
+                    </div>
+                    
+                    <h1 class="section-title">Guidelines & Rules</h1>
+                    
+                    <div class="guidelines-content" id="guidelines-content">
+                        <!-- Guidelines will be dynamically loaded here -->
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Organizers</h4>
-                    <p>IEEE Madras Section</p>
-                    <p>SSN College of Engineering, Chennai</p>
-                    <p>Sri Sivasubramaniya Nadar College of Engineering</p>
-                </div>
-            </div>
+            </section>
         </div>
-    </footer>
+
+        <!-- Contact Page -->
+        <div id="page-contact" class="page">
+            <section class="section">
+                <div class="container">
+                    <div class="breadcrumb">
+                        <a href="#" data-page="home">Home</a>
+                        <span>/</span>
+                        <span>Contact</span>
+                    </div>
+                    
+                    <h1 class="section-title">Registration & Contact</h1>
+                    
+                    <div class="contact-content" id="contact-content">
+                        <!-- Contact information will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="19" x2="12" y2="5"/>
+            <polyline points="5,12 12,5 19,12"/>
+        </svg>
+    </button>
 
     <!-- Floating Registration Button -->
     <div class="floating-action-btn" id="floating-register">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <line x1="20" y1="8" x2="20" y2="14"/>
+            <line x1="23" y1="11" x2="17" y2="11"/>
+        </svg>
         <span>Register</span>
-        <div class="fab-pulse"></div>
     </div>
 
     <script src="app.js"></script>

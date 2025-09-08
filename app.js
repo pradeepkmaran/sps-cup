@@ -1,26 +1,363 @@
+// Application data and configuration
+const APP_DATA = {
+    navigation: {
+        brand: "SPS CUP 2025",
+        pages: [
+            {"id": "home", "title": "Home", "icon": "home"},
+            {"id": "overview", "title": "Overview", "icon": "info"},
+            {"id": "tracks", "title": "Tracks", "icon": "layers"},
+            {"id": "timeline", "title": "Timeline", "icon": "calendar"},
+            {"id": "guidelines", "title": "Guidelines", "icon": "rules"},
+            {"id": "contact", "title": "Contact", "icon": "contact"}
+        ]
+    },
+    pages: {
+        home: {
+            title: "Signal Processing Cup Challenge",
+            subtitle: "A National-Level Innovation Challenge",
+            organizers: "IEEE Madras Section & SSN College of Engineering, Chennai",
+            registration_dates: "16-25 September 2025",
+            grand_demo: "16-17 October 2025",
+            cta_text: "Register Now",
+            highlights: [
+                "5 Challenging Tracks",
+                "National Level Competition", 
+                "Cash Prizes & Certificates",
+                "Industry Expert Judges"
+            ]
+        },
+        tracks: {
+            title: "Competition Tracks",
+            subtitle: "Choose your challenge and innovate",
+            tracks: [
+                {
+                    id: "bci",
+                    title: "Biomedical Signal Processing",
+                    subtitle: "Brain-Computer Interface (BCI)",
+                    color: "#0066ff",
+                    icon: "🧠",
+                    description: "Develop cutting-edge brain-computer interfaces using EEG signal processing",
+                    problems: [
+                        {
+                            title: "Motor Imagery EEG Control",
+                            description: "Design a system that decodes motor imagery from EEG signals to allow hands-free control interfaces. Build a signal processing pipeline that classifies multi-channel EEG data based on imagined limb movements, such as left hand versus right hand.",
+                            techniques: ["CSP (Common Spatial Patterns)", "Wavelet Transforms", "SVM", "CNN"],
+                            bonus: "Real-time implementation or virtual interface integration"
+                        },
+                        {
+                            title: "Emotional State Recognition",
+                            description: "Develop a model that identifies emotional states using EEG signals to support mental health monitoring and user interfaces that adjust to needs. Create a system that processes EEG data to classify emotional states, including happiness, stress, or calmness.",
+                            datasets: ["DEAP", "DREAMER"],
+                            techniques: ["Frequency band analysis", "Entropy measures", "Machine learning classifiers"],
+                            focus: "Interpretable and reliable results across subjects"
+                        },
+                        {
+                            title: "Cognitive Workload Estimation",
+                            description: "Estimate cognitive workload from EEG signals to improve human-computer interaction and learning systems. Design a pipeline that analyzes EEG recordings to measure cognitive load during tasks, such as problem-solving or multitasking.",
+                            features: ["Theta/beta ratio", "Spectral power", "Real-time feedback"],
+                            applications: ["Adaptive systems", "Learning optimization"]
+                        }
+                    ]
+                },
+                {
+                    id: "wireless",
+                    title: "Wireless Sensing",
+                    subtitle: "Wi-Fi Vision",
+                    color: "#00bcd4",
+                    icon: "📡",
+                    description: "Harness Wi-Fi signals for device-free sensing and activity recognition",
+                    problems: [
+                        {
+                            title: "Device-Free Activity Recognition",
+                            description: "Use Channel State Information (CSI) extracted from standard Wi-Fi packets to detect and classify human activities in a room (e.g., walking, sitting, waving) without using cameras or wearables.",
+                            technology: "Wi-Fi CSI analysis",
+                            activities: ["Walking", "Sitting", "Waving", "Gestures"],
+                            advantage: "Privacy-preserving sensing without cameras or wearables"
+                        }
+                    ]
+                },
+                {
+                    id: "environmental",
+                    title: "Environmental & Geospatial",
+                    subtitle: "Signal Processing",
+                    color: "#4caf50",
+                    icon: "🌍",
+                    description: "Apply signal processing to environmental monitoring and geospatial analysis",
+                    problems: [
+                        {
+                            title: "Seismic Event Classifier",
+                            description: "Identify earthquakes by clear P and S arrivals, emergent onset, long coda, and strong low-frequency surface waves. Detect explosions through impulsive P waves, weak or absent S waves, short duration, and high-frequency content.",
+                            events: ["Earthquakes", "Explosions", "Urban noise"],
+                            features: ["P/S wave analysis", "Frequency content", "Signal duration"]
+                        },
+                        {
+                            title: "Acoustic Source Localization",
+                            description: "Set up an array of microphones at precisely known positions in the environment. Record the sound signal as it reaches each microphone. Calculate the Time Difference of Arrival (TDOA) of the sound between microphones.",
+                            method: "TDOA-based triangulation",
+                            setup: "Microphone array with known positions",
+                            output: "Precise source location coordinates"
+                        },
+                        {
+                            title: "Deforestation Detector with Radar Imagery",
+                            description: "Collect time-series Synthetic Aperture Radar (SAR) satellite images of the target region. Preprocess the imagery to remove noise and align datasets. Compare images across different time intervals to identify significant changes.",
+                            data: "SAR satellite imagery",
+                            analysis: "Time-series change detection",
+                            output: "Deforestation mapping and monitoring"
+                        }
+                    ]
+                },
+                {
+                    id: "ev",
+                    title: "Electronic Vehicles",
+                    subtitle: "Signal Processing",
+                    color: "#ff9800",
+                    icon: "⚡",
+                    description: "Develop signal processing solutions for electric vehicle monitoring and diagnostics",
+                    problems: [
+                        {
+                            title: "Inverter Fault Detection",
+                            description: "Build a system that detects inverter faults in EVs by analyzing current and voltage waveforms. The pipeline should include preprocessing signals with filtering and denoising methods and extracting features using FFT, Wavelet Transform, and time-frequency analysis.",
+                            signals: ["Current waveforms", "Voltage patterns"],
+                            techniques: ["FFT", "Wavelet Transform", "Time-frequency analysis"],
+                            faults: ["Harmonic distortions", "Short circuits", "Switching faults"],
+                            integration: "Vehicle control units and cloud dashboards"
+                        },
+                        {
+                            title: "Electric Motor Condition Monitoring",
+                            description: "Develop a signal processing pipeline that continuously checks EV motor health using stator current, vibration, and sound emission signals. Use Envelope Detection, Hilbert-Huang Transform, and Spectrogram analysis.",
+                            signals: ["Stator current", "Vibration", "Sound emission"],
+                            techniques: ["Envelope Detection", "Hilbert-Huang Transform", "Spectrogram analysis"],
+                            faults: ["Bearing wear", "Rotor misalignment", "Insulation breakdown"],
+                            ai_models: ["SVM", "CNN"]
+                        },
+                        {
+                            title: "Road Condition Classification",
+                            description: "Develop a road-condition classification system for EVs using vibration signal processing. Acquire vibration signals from accelerometers attached to the suspension and chassis using time-frequency analysis.",
+                            sensors: "Accelerometers on suspension and chassis",
+                            analysis: ["STFT", "Wavelet Transforms"],
+                            conditions: ["Smooth", "Rough", "Potholes", "Wet", "Gravel"],
+                            applications: ["Adaptive suspension", "Safety features", "Route optimization"]
+                        }
+                    ]
+                },
+                {
+                    id: "innovation",
+                    title: "Student Innovation",
+                    subtitle: "Open Track",
+                    color: "#9c27b0",
+                    icon: "💡",
+                    description: "Propose your own innovative signal processing solution",
+                    problems: [
+                        {
+                            title: "Open Innovation Track",
+                            description: "Propose your own innovative signal processing solution to address real-world challenges. This track encourages creative thinking and novel applications of signal processing techniques across any domain.",
+                            scope: "Any signal processing application",
+                            focus: "Innovation and real-world impact",
+                            domains: ["Healthcare", "Smart cities", "Agriculture", "Security", "Communication"],
+                            evaluation: "Novelty, feasibility, and societal impact"
+                        }
+                    ]
+                }
+            ]
+        },
+        timeline: {
+            title: "Competition Timeline",
+            subtitle: "From submission to Grand Demo Day",
+            phases: [
+                {
+                    phase: "Registration",
+                    dates: "16-25 September 2025",
+                    description: "Team registration opens",
+                    status: "upcoming",
+                    tasks: ["Form teams of 3-4 members", "Select competition track", "Submit team details"]
+                },
+                {
+                    phase: "Round 1: Idea Submission",
+                    dates: "September 2025",
+                    description: "Online presentation submission",
+                    status: "upcoming",
+                    format: "Presentation based on provided template",
+                    evaluation: ["Novelty", "Feasibility", "Cost-effectiveness", "Scalability"],
+                    criteria: "Less than 10% AI-generated content allowed"
+                },
+                {
+                    phase: "Grand Demo Day",
+                    dates: "16-17 October 2025",
+                    location: "SSN College of Engineering",
+                    description: "Offline final round for top 10 teams",
+                    status: "upcoming",
+                    rounds: [
+                        {
+                            round: "Setup & Evaluation",
+                            time: "Until 4PM Day 1",
+                            description: "Implementation and setup with expert suggestions",
+                            evaluation: "Internal Jury at 5PM"
+                        },
+                        {
+                            round: "Implementation Review", 
+                            time: "1PM Day 2",
+                            description: "Assessment of implemented changes and suggestions"
+                        },
+                        {
+                            round: "Final Presentation",
+                            time: "9AM Day 2", 
+                            description: "Final review by External Jury",
+                            format: "Live demos and presentations"
+                        }
+                    ]
+                }
+            ]
+        },
+        guidelines: {
+            title: "Guidelines & Rules",
+            sections: {
+                team_formation: {
+                    title: "Team Formation",
+                    rules: [
+                        "Each team must have 3 to 4 members",
+                        "Team members can be from different academic backgrounds",
+                        "Each team selects one track to compete in"
+                    ]
+                },
+                evaluation_criteria: {
+                    title: "Evaluation Criteria",
+                    criteria: [
+                        "Novelty and originality of the proposed solution",
+                        "Complexity and depth of technical approach",
+                        "Clarity, structure, and details in submission format",
+                        "Feasibility of implementation with available resources",
+                        "Sustainability of the solution over time",
+                        "Scalability of the solution"
+                    ]
+                },
+                general_rules: {
+                    title: "General Rules",
+                    rules: [
+                        "Projects must be developed during the hackathon period",
+                        "Use of open-source or existing code must be declared",
+                        "All team members must be present for evaluations",
+                        "Plagiarism will lead to disqualification",
+                        "Respect deadlines and conduct - violations result in penalties"
+                    ]
+                },
+                awards: {
+                    title: "Awards & Recognition",
+                    prizes: [
+                        {
+                            title: "Track Winners",
+                            description: "Top 2 teams from each track",
+                            prize: "Cash prizes and certificates"
+                        },
+                        {
+                            title: "Participation Recognition",
+                            description: "All shortlisted final round teams",
+                            prize: "Participation certificates"
+                        }
+                    ]
+                },
+                expected_outcomes: {
+                    title: "Expected Outcomes",
+                    outcomes: [
+                        "Encourages innovation and problem-solving culture among students",
+                        "Provides hands-on learning experience in applying theoretical concepts",
+                        "Strengthens teamwork, leadership, and collaboration skills",
+                        "Builds exposure to real-world industry problems and research trends",
+                        "Enhances presentation, communication, and pitching abilities",
+                        "Offers networking opportunities with peers, mentors, and professionals",
+                        "Inspires participants to pursue research, startups, or career paths",
+                        "Contributes to creating a community of innovators for global challenges"
+                    ]
+                }
+            }
+        },
+        contact: {
+            title: "Registration & Contact",
+            registration: {
+                title: "Registration Information",
+                dates: "16-25 September 2025", 
+                process: "Online registration through official portal",
+                eligibility: "Students, researchers, and professionals in engineering, computer science, and related fields"
+            },
+            venue: {
+                title: "Grand Demo Venue",
+                name: "Sri Sivasubramaniya Nadar College of Engineering",
+                dates: "16-17 October 2025",
+                format: "In-person final presentations and demonstrations"
+            },
+            organizers: {
+                primary: {
+                    name: "IEEE Madras Section",
+                    role: "Primary Organizer"
+                },
+                host: {
+                    name: "SSN College of Engineering, Chennai",
+                    role: "Host Institution"
+                }
+            }
+        }
+    }
+};
+
 // Global variables
 let particleSystem = [];
-let signalCanvas;
-let particlesCanvas;
-let signalCtx;
-let particlesCtx;
+let signalCanvas, particlesCanvas;
+let signalCtx, particlesCtx;
 let animationId;
 let signalWaveforms = [];
+let currentPage = 'home';
+let isAnimating = false;
 
-// Initialize everything when DOM is loaded
+// Initialize application
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing application...');
+    initializeLoadingScreen();
     initializeCanvas();
     initializeParticleSystem();
     initializeSignalWaveforms();
+    initializeNavigation();
     initializeCountdown();
-    initializeScrollAnimations();
-    initializeSmoothScrolling();
+    initializeScrollBehavior();
     initializeInteractiveElements();
-    initializeProblemCards();
     startAnimationLoop();
+    
+    // Load initial content after a short delay
+    setTimeout(() => {
+        loadPageContent('home');
+        hideLoadingScreen();
+    }, 1500);
 });
 
-// Canvas initialization
+// Loading Screen
+function initializeLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        console.log('Loading screen initialized');
+        // Simulate loading progress
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+            }
+        }, 100);
+    }
+}
+
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        console.log('Hiding loading screen');
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => {
+            if (loadingScreen.parentNode) {
+                loadingScreen.parentNode.removeChild(loadingScreen);
+            }
+        }, 500);
+    }
+}
+
+// Canvas and Animation System
 function initializeCanvas() {
     signalCanvas = document.getElementById('signal-canvas');
     particlesCanvas = document.getElementById('particles-canvas');
@@ -51,29 +388,26 @@ class Particle {
     constructor(x, y, type = 'default') {
         this.x = x;
         this.y = y;
-        this.vx = (Math.random() - 0.5) * 0.8;
-        this.vy = (Math.random() - 0.5) * 0.8;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
         this.life = 1.0;
-        this.decay = 0.008;
-        this.size = Math.random() * 4 + 1;
+        this.decay = 0.003;
+        this.size = Math.random() * 3 + 1;
         this.type = type;
         this.angle = Math.random() * Math.PI * 2;
-        this.rotation = (Math.random() - 0.5) * 0.03;
+        this.rotation = (Math.random() - 0.5) * 0.02;
         this.pulse = Math.random() * Math.PI * 2;
-        this.originalX = x;
-        this.originalY = y;
-        this.amplitude = Math.random() * 30 + 15;
         this.color = this.getTypeColor(type);
     }
     
     getTypeColor(type) {
         const colors = {
-            'biomedical': '#00ffff',
-            'wireless': '#0066ff', 
-            'environmental': '#39ff14',
-            'vehicles': '#ff6b35',
-            'innovation': '#e91e63',
-            'default': '#ffffff'
+            'biomedical': '#0066ff',
+            'wireless': '#00bcd4', 
+            'environmental': '#4caf50',
+            'vehicles': '#ff9800',
+            'innovation': '#9c27b0',
+            'default': '#33828d'
         };
         return colors[type] || colors['default'];
     }
@@ -84,77 +418,46 @@ class Particle {
         const dy = mouseY - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 150) {
-            const force = (150 - distance) / 150;
-            this.vx -= (dx / distance) * force * 0.03;
-            this.vy -= (dy / distance) * force * 0.03;
+        if (distance < 100) {
+            const force = (100 - distance) / 100;
+            this.vx -= (dx / distance) * force * 0.02;
+            this.vy -= (dy / distance) * force * 0.02;
         }
         
-        // Update position with velocity damping
+        // Update position
         this.x += this.vx;
         this.y += this.vy;
         this.vx *= 0.99;
         this.vy *= 0.99;
         
         // Add floating motion
-        this.pulse += 0.025;
-        this.y += Math.sin(this.pulse) * 0.4;
+        this.pulse += 0.02;
+        this.y += Math.sin(this.pulse) * 0.3;
         this.x += Math.cos(this.pulse * 0.7) * 0.2;
         
-        // Boundary collision with bounce
-        if (this.x <= 0 || this.x >= particlesCanvas.width) {
-            this.vx *= -0.7;
-            this.x = Math.max(0, Math.min(particlesCanvas.width, this.x));
-        }
-        if (this.y <= 0 || this.y >= particlesCanvas.height) {
-            this.vy *= -0.7;
-            this.y = Math.max(0, Math.min(particlesCanvas.height, this.y));
-        }
+        // Boundary wrapping
+        if (this.x < 0) this.x = particlesCanvas.width;
+        if (this.x > particlesCanvas.width) this.x = 0;
+        if (this.y < 0) this.y = particlesCanvas.height;
+        if (this.y > particlesCanvas.height) this.y = 0;
         
-        // Rotation and life decay
+        // Life management
         this.angle += this.rotation;
-        this.life -= this.decay * 0.3;
+        this.life -= this.decay;
         
-        // Reset if life is too low
         if (this.life <= 0) {
             this.life = 1.0;
             this.x = Math.random() * particlesCanvas.width;
             this.y = Math.random() * particlesCanvas.height;
-            this.vx = (Math.random() - 0.5) * 0.8;
-            this.vy = (Math.random() - 0.5) * 0.8;
         }
     }
     
     draw(ctx) {
         ctx.save();
-        ctx.globalAlpha = this.life * 0.7;
+        ctx.globalAlpha = this.life * 0.6;
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
         
-        switch(this.type) {
-            case 'biomedical':
-                this.drawBiomedical(ctx);
-                break;
-            case 'wireless':
-                this.drawWireless(ctx);
-                break;
-            case 'environmental':
-                this.drawEnvironmental(ctx);
-                break;
-            case 'vehicles':
-                this.drawVehicles(ctx);
-                break;
-            case 'innovation':
-                this.drawInnovation(ctx);
-                break;
-            default:
-                this.drawDefault(ctx);
-        }
-        
-        ctx.restore();
-    }
-    
-    drawDefault(ctx) {
         const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
         gradient.addColorStop(0, this.color);
         gradient.addColorStop(1, 'transparent');
@@ -163,92 +466,8 @@ class Particle {
         ctx.beginPath();
         ctx.arc(0, 0, this.size, 0, Math.PI * 2);
         ctx.fill();
-    }
-    
-    drawBiomedical(ctx) {
-        // Draw EEG-like wave
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth = 2;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
-        ctx.beginPath();
-        for (let i = -10; i <= 10; i++) {
-            const y = Math.sin(i * 0.5 + this.pulse) * 4;
-            if (i === -10) ctx.moveTo(i, y);
-            else ctx.lineTo(i, y);
-        }
-        ctx.stroke();
-    }
-    
-    drawWireless(ctx) {
-        // Draw Wi-Fi signal waves
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth = 1.5;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = this.color;
         
-        for (let i = 1; i <= 3; i++) {
-            ctx.beginPath();
-            ctx.arc(0, 0, i * 3, -Math.PI/4, Math.PI/4);
-            ctx.stroke();
-        }
-    }
-    
-    drawEnvironmental(ctx) {
-        // Draw seismic wave pattern
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth = 2;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
-        ctx.beginPath();
-        ctx.moveTo(-8, 0);
-        ctx.lineTo(-5, 0);
-        ctx.lineTo(-3, -8);
-        ctx.lineTo(0, 12);
-        ctx.lineTo(3, -6);
-        ctx.lineTo(5, 0);
-        ctx.lineTo(8, 0);
-        ctx.stroke();
-    }
-    
-    drawVehicles(ctx) {
-        // Draw gear-like pattern
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth = 2;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = this.color;
-        
-        ctx.beginPath();
-        for (let i = 0; i < 8; i++) {
-            const angle = (i * Math.PI) / 4;
-            const x1 = Math.cos(angle) * 4;
-            const y1 = Math.sin(angle) * 4;
-            const x2 = Math.cos(angle) * 8;
-            const y2 = Math.sin(angle) * 8;
-            
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-        }
-        ctx.stroke();
-    }
-    
-    drawInnovation(ctx) {
-        // Draw star pattern
-        ctx.fillStyle = this.color;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = this.color;
-        
-        ctx.beginPath();
-        for (let i = 0; i < 5; i++) {
-            const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
-            const x = Math.cos(angle) * 6;
-            const y = Math.sin(angle) * 6;
-            
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-        }
-        ctx.closePath();
-        ctx.fill();
+        ctx.restore();
     }
 }
 
@@ -256,7 +475,7 @@ function initializeParticleSystem() {
     particleSystem = [];
     const particleTypes = ['biomedical', 'wireless', 'environmental', 'vehicles', 'innovation', 'default'];
     
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 50; i++) {
         const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
         particleSystem.push(new Particle(
             Math.random() * window.innerWidth,
@@ -266,14 +485,14 @@ function initializeParticleSystem() {
     }
 }
 
-// Signal Waveforms for background
+// Signal Waveforms
 class SignalWaveform {
     constructor(type, y, color, frequency = 0.01) {
         this.type = type;
         this.y = y;
         this.color = color;
         this.frequency = frequency;
-        this.amplitude = 40;
+        this.amplitude = 30;
         this.offset = 0;
         this.points = [];
     }
@@ -284,88 +503,46 @@ class SignalWaveform {
         
         if (!signalCanvas) return;
         
-        for (let x = 0; x <= signalCanvas.width + 100; x += 8) {
-            let y;
-            switch(this.type) {
-                case 'biomedical':
-                    y = this.generateBiomedical(x);
-                    break;
-                case 'wireless':
-                    y = this.generateWireless(x);
-                    break;
-                case 'environmental':
-                    y = this.generateEnvironmental(x);
-                    break;
-                case 'vehicles':
-                    y = this.generateVehicles(x);
-                    break;
-                default:
-                    y = this.generateDefault(x);
-            }
-            this.points.push({ x: x - this.offset * 150, y: this.y + y });
+        for (let x = 0; x <= signalCanvas.width + 50; x += 6) {
+            let y = this.generateSignal(x);
+            this.points.push({ x: x - this.offset * 100, y: this.y + y });
         }
     }
     
-    generateBiomedical(x) {
-        const baseFreq = 0.015;
-        const pos = x * baseFreq + this.offset;
+    generateSignal(x) {
+        const pos = x * this.frequency + this.offset;
         
-        // EEG-like pattern
-        return Math.sin(pos) * 20 + 
-               Math.sin(pos * 2.3) * 12 + 
-               Math.sin(pos * 3.7) * 8 +
-               Math.random() * 6 - 3;
-    }
-    
-    generateWireless(x) {
-        const pos = x * 0.02 + this.offset;
-        return Math.sin(pos) * 15 + 
-               Math.sin(pos * 1.8) * 10 + 
-               Math.cos(pos * 0.7) * 18;
-    }
-    
-    generateEnvironmental(x) {
-        const pos = x * 0.012 + this.offset;
-        const cyclePos = (pos % (Math.PI * 4));
-        
-        let signal = Math.sin(pos * 0.5) * 8;
-        
-        // Add seismic spike occasionally
-        if (cyclePos > 3 && cyclePos < 3.3) {
-            signal += Math.sin((cyclePos - 3) * 10) * 25;
+        switch(this.type) {
+            case 'biomedical':
+                return Math.sin(pos * 3) * 15 + Math.sin(pos * 7) * 8 + Math.random() * 4 - 2;
+            case 'wireless':
+                return Math.sin(pos * 2) * 12 + Math.sin(pos * 1.5) * 8;
+            case 'environmental':
+                const cyclePos = (pos % (Math.PI * 3));
+                let signal = Math.sin(pos * 0.8) * 6;
+                if (cyclePos > 2 && cyclePos < 2.2) {
+                    signal += Math.sin((cyclePos - 2) * 15) * 20;
+                }
+                return signal;
+            case 'vehicles':
+                return Math.sin(pos * 2.5) * 10 + Math.cos(pos * 1.2) * 6 + (Math.random() - 0.5) * 6;
+            default:
+                return Math.sin(pos * 2) * this.amplitude * 0.5;
         }
-        
-        return signal + Math.random() * 4 - 2;
-    }
-    
-    generateVehicles(x) {
-        const pos = x * 0.025 + this.offset;
-        return Math.sin(pos) * 12 + 
-               Math.cos(pos * 1.5) * 8 + 
-               Math.sin(pos * 0.3) * 15 +
-               (Math.random() - 0.5) * 8;
-    }
-    
-    generateDefault(x) {
-        const pos = x * 0.02 + this.offset;
-        return Math.sin(pos) * this.amplitude * 0.7;
     }
     
     draw(ctx) {
         if (!ctx || this.points.length === 0) return;
         
         ctx.strokeStyle = this.color;
-        ctx.lineWidth = 2;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = this.color;
-        ctx.globalAlpha = 0.3;
+        ctx.lineWidth = 1.5;
+        ctx.globalAlpha = 0.4;
         
         ctx.beginPath();
         let started = false;
         
-        for (let i = 0; i < this.points.length; i++) {
-            const point = this.points[i];
-            if (point.x > -100 && point.x < signalCanvas.width + 100) {
+        for (let point of this.points) {
+            if (point.x > -50 && point.x < signalCanvas.width + 50) {
                 if (!started) {
                     ctx.moveTo(point.x, point.y);
                     started = true;
@@ -376,7 +553,6 @@ class SignalWaveform {
         }
         
         ctx.stroke();
-        ctx.shadowBlur = 0;
         ctx.globalAlpha = 1;
     }
 }
@@ -385,18 +561,523 @@ function initializeSignalWaveforms() {
     if (!signalCanvas) return;
     
     signalWaveforms = [
-        new SignalWaveform('biomedical', signalCanvas.height * 0.15, '#00ffff', 0.01),
-        new SignalWaveform('wireless', signalCanvas.height * 0.35, '#0066ff', 0.013),
-        new SignalWaveform('environmental', signalCanvas.height * 0.55, '#39ff14', 0.008),
-        new SignalWaveform('vehicles', signalCanvas.height * 0.75, '#ff6b35', 0.016),
-        new SignalWaveform('default', signalCanvas.height * 0.9, '#e91e63', 0.011)
+        new SignalWaveform('biomedical', signalCanvas.height * 0.2, '#0066ff', 0.008),
+        new SignalWaveform('wireless', signalCanvas.height * 0.4, '#00bcd4', 0.01),
+        new SignalWaveform('environmental', signalCanvas.height * 0.6, '#4caf50', 0.006),
+        new SignalWaveform('vehicles', signalCanvas.height * 0.8, '#ff9800', 0.012)
     ];
+}
+
+// Navigation System
+function initializeNavigation() {
+    console.log('Initializing navigation...');
+    
+    // Desktop navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = link.dataset.page;
+            console.log('Desktop nav clicked:', page);
+            if (page && !isAnimating) {
+                navigateToPage(page);
+            }
+        });
+    });
+    
+    // Mobile navigation
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = link.dataset.page;
+            console.log('Mobile nav clicked:', page);
+            if (page && !isAnimating) {
+                navigateToPage(page);
+                closeMobileNav();
+            }
+        });
+    });
+    
+    // Mobile menu toggle - FIXED
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
+    const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+    
+    if (mobileMenuBtn) {
+        console.log('Mobile menu button found, adding event listener');
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Mobile menu button clicked');
+            openMobileNav();
+        });
+    } else {
+        console.error('Mobile menu button not found');
+    }
+    
+    if (mobileNavClose) {
+        mobileNavClose.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Mobile nav close clicked');
+            closeMobileNav();
+        });
+    }
+    
+    if (mobileNavOverlay) {
+        mobileNavOverlay.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Mobile nav overlay clicked');
+            closeMobileNav();
+        });
+    }
+    
+    // Breadcrumb navigation
+    document.addEventListener('click', (e) => {
+        if (e.target.matches('.breadcrumb a')) {
+            e.preventDefault();
+            const page = e.target.dataset.page;
+            if (page && !isAnimating) {
+                navigateToPage(page);
+            }
+        }
+    });
+    
+    // Brand logo navigation
+    const navBrand = document.querySelector('.nav-brand');
+    if (navBrand) {
+        navBrand.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!isAnimating) {
+                navigateToPage('home');
+            }
+        });
+    }
+}
+
+function openMobileNav() {
+    console.log('Opening mobile nav...');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    
+    if (mobileNav) {
+        mobileNav.classList.add('active');
+        console.log('Mobile nav activated');
+    }
+    if (mobileNavOverlay) {
+        mobileNavOverlay.classList.add('active');
+        console.log('Mobile overlay activated');
+    }
+    if (mobileMenuBtn) {
+        mobileMenuBtn.classList.add('active');
+        console.log('Mobile button activated');
+    }
+    
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMobileNav() {
+    console.log('Closing mobile nav...');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    
+    if (mobileNav) {
+        mobileNav.classList.remove('active');
+    }
+    if (mobileNavOverlay) {
+        mobileNavOverlay.classList.remove('active');
+    }
+    if (mobileMenuBtn) {
+        mobileMenuBtn.classList.remove('active');
+    }
+    
+    document.body.style.overflow = '';
+}
+
+function navigateToPage(pageId) {
+    console.log('Navigating to page:', pageId);
+    if (isAnimating || currentPage === pageId) return;
+    
+    isAnimating = true;
+    
+    // Update active navigation states
+    updateActiveNavigation(pageId);
+    
+    // Hide current page
+    const currentPageEl = document.getElementById(`page-${currentPage}`);
+    if (currentPageEl) {
+        currentPageEl.style.opacity = '0';
+        currentPageEl.style.transform = 'translateY(-20px)';
+    }
+    
+    setTimeout(() => {
+        // Hide all pages
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => {
+            page.classList.remove('active');
+        });
+        
+        // Show target page
+        const targetPageEl = document.getElementById(`page-${pageId}`);
+        if (targetPageEl) {
+            targetPageEl.classList.add('active');
+            
+            // Load content if not already loaded
+            loadPageContent(pageId);
+            
+            // Animate in
+            requestAnimationFrame(() => {
+                targetPageEl.style.opacity = '1';
+                targetPageEl.style.transform = 'translateY(0)';
+            });
+        }
+        
+        currentPage = pageId;
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        setTimeout(() => {
+            isAnimating = false;
+        }, 300);
+        
+    }, 150);
+}
+
+function updateActiveNavigation(pageId) {
+    // Desktop nav
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.page === pageId);
+    });
+    
+    // Mobile nav
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.page === pageId);
+    });
+}
+
+// Content Loading System
+function loadPageContent(pageId) {
+    switch(pageId) {
+        case 'tracks':
+            loadTracksContent();
+            break;
+        case 'timeline':
+            loadTimelineContent();
+            break;
+        case 'guidelines':
+            loadGuidelinesContent();
+            break;
+        case 'contact':
+            loadContactContent();
+            break;
+    }
+}
+
+function loadTracksContent() {
+    const tracksGrid = document.getElementById('tracks-grid');
+    if (!tracksGrid || tracksGrid.hasChildNodes()) return;
+    
+    const tracks = APP_DATA.pages.tracks.tracks;
+    
+    tracks.forEach(track => {
+        const trackCard = document.createElement('div');
+        trackCard.className = 'track-card';
+        trackCard.style.setProperty('--track-color', track.color);
+        
+        trackCard.innerHTML = `
+            <div class="track-header">
+                <div class="track-icon" style="background: rgba(${hexToRgb(track.color)}, 0.1); border-color: rgba(${hexToRgb(track.color)}, 0.3); color: ${track.color};">
+                    ${track.icon}
+                </div>
+                <div>
+                    <h3 class="track-title">${track.title}</h3>
+                    <p class="track-subtitle">${track.subtitle}</p>
+                </div>
+            </div>
+            <p class="track-description">${track.description}</p>
+            <div class="track-problems">
+                <div class="problem-count">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    ${track.problems.length} Problem${track.problems.length !== 1 ? 's' : ''}
+                </div>
+            </div>
+        `;
+        
+        trackCard.addEventListener('click', () => {
+            showTrackModal(track);
+        });
+        
+        tracksGrid.appendChild(trackCard);
+    });
+}
+
+function loadTimelineContent() {
+    const timelineContainer = document.getElementById('timeline-container');
+    if (!timelineContainer || timelineContainer.hasChildNodes()) return;
+    
+    const phases = APP_DATA.pages.timeline.phases;
+    
+    phases.forEach((phase, index) => {
+        const timelineItem = document.createElement('div');
+        timelineItem.className = 'timeline-item';
+        
+        let detailsHTML = '';
+        if (phase.tasks) {
+            detailsHTML += `
+                <div class="timeline-details">
+                    <h4>Tasks:</h4>
+                    <ul>
+                        ${phase.tasks.map(task => `<li>${task}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+        
+        if (phase.evaluation) {
+            detailsHTML += `
+                <div class="timeline-details">
+                    <h4>Evaluation Criteria:</h4>
+                    <ul>
+                        ${phase.evaluation.map(criteria => `<li>${criteria}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+        
+        if (phase.rounds) {
+            detailsHTML += `
+                <div class="timeline-details">
+                    <h4>Competition Rounds:</h4>
+                    ${phase.rounds.map(round => `
+                        <div style="margin-bottom: 1rem; padding: 1rem; background: rgba(var(--color-primary-rgb, 33, 128, 141), 0.05); border-radius: 8px;">
+                            <strong>${round.round}</strong> - ${round.time}<br>
+                            <span style="color: var(--color-text-secondary);">${round.description}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        timelineItem.innerHTML = `
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <h3 class="timeline-phase">${phase.phase}</h3>
+                <div class="timeline-dates">${phase.dates}</div>
+                ${phase.location ? `<div style="color: var(--color-warning); font-weight: 600; margin-bottom: 0.5rem;">📍 ${phase.location}</div>` : ''}
+                <p class="timeline-description">${phase.description}</p>
+                ${detailsHTML}
+            </div>
+        `;
+        
+        timelineContainer.appendChild(timelineItem);
+    });
+}
+
+function loadGuidelinesContent() {
+    const guidelinesContent = document.getElementById('guidelines-content');
+    if (!guidelinesContent || guidelinesContent.hasChildNodes()) return;
+    
+    const sections = APP_DATA.pages.guidelines.sections;
+    
+    Object.entries(sections).forEach(([key, section]) => {
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = 'guidelines-section';
+        
+        let contentHTML = '';
+        
+        if (section.rules) {
+            contentHTML = `
+                <div class="guidelines-list">
+                    ${section.rules.map((rule, index) => `
+                        <div class="guideline-item">
+                            <strong>${index + 1}.</strong> ${rule}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        } else if (section.criteria) {
+            contentHTML = `
+                <div class="guidelines-list">
+                    ${section.criteria.map((criteria, index) => `
+                        <div class="guideline-item">
+                            <strong>${index + 1}.</strong> ${criteria}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        } else if (section.prizes) {
+            contentHTML = `
+                <div class="awards-grid">
+                    ${section.prizes.map(prize => `
+                        <div class="award-card">
+                            <h4>${prize.title}</h4>
+                            <p>${prize.description}</p>
+                            <strong style="color: var(--color-primary);">${prize.prize}</strong>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        } else if (section.outcomes) {
+            contentHTML = `
+                <div class="guidelines-list">
+                    ${section.outcomes.map((outcome, index) => `
+                        <div class="guideline-item">
+                            <strong>${index + 1}.</strong> ${outcome}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        sectionDiv.innerHTML = `
+            <h2>${section.title}</h2>
+            ${contentHTML}
+        `;
+        
+        guidelinesContent.appendChild(sectionDiv);
+    });
+}
+
+function loadContactContent() {
+    const contactContent = document.getElementById('contact-content');
+    if (!contactContent || contactContent.hasChildNodes()) return;
+    
+    const contact = APP_DATA.pages.contact;
+    
+    contactContent.innerHTML = `
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3>${contact.registration.title}</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>Registration Period:</strong> ${contact.registration.dates}
+                    </div>
+                    <div class="contact-item">
+                        <strong>Process:</strong> ${contact.registration.process}
+                    </div>
+                    <div class="contact-item">
+                        <strong>Eligibility:</strong> ${contact.registration.eligibility}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-card">
+                <h3>${contact.venue.title}</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>Venue:</strong> ${contact.venue.name}
+                    </div>
+                    <div class="contact-item">
+                        <strong>Dates:</strong> ${contact.venue.dates}
+                    </div>
+                    <div class="contact-item">
+                        <strong>Format:</strong> ${contact.venue.format}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-card">
+                <h3>Organizers</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>${contact.organizers.primary.role}:</strong> ${contact.organizers.primary.name}
+                    </div>
+                    <div class="contact-item">
+                        <strong>${contact.organizers.host.role}:</strong> ${contact.organizers.host.name}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Track Modal
+function showTrackModal(track) {
+    // Remove existing modal
+    const existingModal = document.querySelector('.problem-modal');
+    if (existingModal) existingModal.remove();
+    
+    const modal = document.createElement('div');
+    modal.className = 'problem-modal';
+    
+    const problemsHTML = track.problems.map((problem, index) => {
+        let detailsHTML = '';
+        
+        // Add different details based on problem properties
+        Object.entries(problem).forEach(([key, value]) => {
+            if (key !== 'title' && key !== 'description' && Array.isArray(value)) {
+                detailsHTML += `<p><strong>${key.replace(/_/g, ' ').toUpperCase()}:</strong> ${value.join(', ')}</p>`;
+            } else if (key !== 'title' && key !== 'description' && typeof value === 'string') {
+                detailsHTML += `<p><strong>${key.replace(/_/g, ' ').toUpperCase()}:</strong> ${value}</p>`;
+            }
+        });
+        
+        return `
+            <div style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(${hexToRgb(track.color)}, 0.05); border-radius: 12px; border-left: 4px solid ${track.color};">
+                <h4 style="color: ${track.color}; margin-bottom: 1rem;">${index + 1}. ${problem.title}</h4>
+                <p style="margin-bottom: 1rem; line-height: 1.6;">${problem.description}</p>
+                ${detailsHTML}
+            </div>
+        `;
+    }).join('');
+    
+    modal.innerHTML = `
+        <div class="problem-modal-content">
+            <div class="problem-modal-header">
+                <h2 class="problem-modal-title" style="color: ${track.color};">
+                    ${track.icon} ${track.title}
+                </h2>
+                <button class="problem-modal-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="problem-modal-body">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--color-text-secondary);">${track.description}</p>
+                <h3 style="margin-bottom: 1.5rem; color: var(--color-text);">Problem Statements</h3>
+                ${problemsHTML}
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Show modal
+    requestAnimationFrame(() => {
+        modal.classList.add('active');
+    });
+    
+    // Event listeners
+    modal.querySelector('.problem-modal-close').addEventListener('click', () => {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+        }
+    });
 }
 
 // Countdown Timer
 function initializeCountdown() {
-    // Target date: September 25th, 2025 (Registration deadline)
-    const targetDate = new Date('2025-09-25T23:59:59').getTime();
+    const targetDate = new Date('2025-09-16T00:00:00').getTime();
     
     function updateCountdown() {
         const now = new Date().getTime();
@@ -413,10 +1094,9 @@ function initializeCountdown() {
             animateNumber('minutes', minutes);
             animateNumber('seconds', seconds);
         } else {
-            // Registration period ended
-            const regText = document.querySelector('.registration-info .reg-text');
+            const regText = document.querySelector('.reg-text');
             if (regText) {
-                regText.textContent = 'Registration Period Ended';
+                regText.textContent = 'Registration is now open!';
             }
         }
     }
@@ -433,396 +1113,177 @@ function animateNumber(elementId, targetValue) {
     
     if (currentValue !== targetValue) {
         element.textContent = targetValue.toString().padStart(2, '0');
-        
-        // Add pulse effect
         element.style.transform = 'scale(1.1)';
         setTimeout(() => {
             element.style.transform = 'scale(1)';
-        }, 300);
+        }, 200);
     }
 }
 
-// Problem Cards Expandable Functionality
-function initializeProblemCards() {
-    const problemCards = document.querySelectorAll('.problem-card');
-    
-    problemCards.forEach(card => {
-        const expandBtn = card.querySelector('.expand-btn');
-        const details = card.querySelector('.problem-details');
-        
-        if (expandBtn && details) {
-            expandBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const isExpanded = expandBtn.getAttribute('data-expanded') === 'true';
-                
-                if (isExpanded) {
-                    // Collapse
-                    details.classList.remove('expanded');
-                    expandBtn.setAttribute('data-expanded', 'false');
-                    expandBtn.textContent = '+';
-                } else {
-                    // Expand
-                    details.classList.add('expanded');
-                    expandBtn.setAttribute('data-expanded', 'true');
-                    expandBtn.textContent = '−';
-                }
-                
-                // Add visual feedback
-                card.style.transform = 'scale(1.02)';
-                setTimeout(() => {
-                    card.style.transform = '';
-                }, 200);
-                
-                // Create particle burst effect
-                createParticleBurst(expandBtn);
-            });
-        }
-    });
-}
-
-// Scroll Animations
-function initializeScrollAnimations() {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                
-                // Animate statistics counters
-                if (entry.target.classList.contains('stat-number')) {
-                    animateCounter(entry.target);
-                }
-                
-                // Animate structure items
-                if (entry.target.classList.contains('structure-item')) {
-                    entry.target.classList.add('visible');
-                }
-                
-                // Add staggered animation for grids
-                if (entry.target.classList.contains('purpose-grid') || 
-                    entry.target.classList.contains('criteria-grid') ||
-                    entry.target.classList.contains('outcomes-grid')) {
-                    const cards = entry.target.querySelectorAll('.purpose-card, .criteria-card, .outcome-card');
-                    cards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    });
-                }
-            }
-        });
-    }, observerOptions);
-    
-    // Observe elements for animation
-    const elementsToObserve = document.querySelectorAll('.stat-item, .purpose-card, .criteria-card, .outcome-card, .structure-item, .award-highlight, .purpose-grid, .criteria-grid, .outcomes-grid');
-    
-    elementsToObserve.forEach(el => {
-        if (!el.classList.contains('purpose-grid') && 
-            !el.classList.contains('criteria-grid') &&
-            !el.classList.contains('outcomes-grid')) {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(50px)';
-            el.style.transition = 'all 0.8s ease';
-        }
-        observer.observe(el);
-    });
-    
-    // Observe stat numbers separately
-    document.querySelectorAll('.stat-number').forEach(el => {
-        observer.observe(el);
-    });
-}
-
-function animateCounter(element) {
-    const target = parseInt(element.dataset.target);
-    const duration = 2000;
-    const start = performance.now();
-    
-    function updateCounter(currentTime) {
-        const elapsed = currentTime - start;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Easing function
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(easeOutQuart * target);
-        
-        element.textContent = current;
-        
-        if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-        } else {
-            element.textContent = target;
-        }
-    }
-    
-    requestAnimationFrame(updateCounter);
-}
-
-// Smooth Scrolling
-function initializeSmoothScrolling() {
-    document.querySelectorAll('.nav-links a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const targetId = this.getAttribute('data-scroll');
-            const targetSection = document.getElementById(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Update active nav link
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.classList.remove('active');
-                });
-                this.classList.add('active');
-            }
-        });
-    });
-}
-
-// Interactive Elements
-function initializeInteractiveElements() {
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    
-    // Track mouse movement for particle interactions
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        // Store mouse position globally
-        window.mouseX = mouseX;
-        window.mouseY = mouseY;
-    });
-    
-    // Register button interactions
-    const registerBtn = document.getElementById('register-btn');
-    const floatingRegister = document.getElementById('floating-register');
-    
-    if (registerBtn) {
-        registerBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Add click effect
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-            
-            showRegistrationModal();
-        });
-    }
-    
-    if (floatingRegister) {
-        floatingRegister.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Add click effect
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-            
-            showRegistrationModal();
-        });
-    }
-    
-    // Brand logo click to scroll to top
-    const navBrand = document.querySelector('.nav-brand');
-    if (navBrand) {
-        navBrand.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-    
-    // Navbar scroll behavior
+// Scroll Behavior
+function initializeScrollBehavior() {
     let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('back-to-top');
+    const floatingRegister = document.getElementById('floating-register');
     
     window.addEventListener('scroll', () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
+        // Navbar scroll behavior
         if (navbar) {
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                navbar.style.transform = 'translateY(-100%)';
+            if (scrollTop > 100) {
+                navbar.classList.add('scrolled');
             } else {
-                navbar.style.transform = 'translateY(0)';
+                navbar.classList.remove('scrolled');
             }
-            
-            // Add background opacity based on scroll
-            const opacity = Math.min(scrollTop / 100, 0.95);
-            navbar.style.background = `rgba(10, 10, 10, ${opacity})`;
+        }
+        
+        // Back to top button
+        if (backToTop) {
+            if (scrollTop > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+        
+        // Floating register button
+        if (floatingRegister) {
+            if (scrollTop > 800 && currentPage !== 'home') {
+                floatingRegister.classList.add('visible');
+            } else {
+                floatingRegister.classList.remove('visible');
+            }
         }
         
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });
     
-    // Floating action button behavior
-    const floatingBtn = document.getElementById('floating-register');
-    if (floatingBtn) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            
-            if (scrolled > 800) {
-                floatingBtn.style.opacity = '1';
-                floatingBtn.style.transform = 'scale(1)';
-            } else {
-                floatingBtn.style.opacity = '0';
-                floatingBtn.style.transform = 'scale(0.8)';
-            }
+    // Back to top functionality
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
-    
-    // Add hover effects to track sections
-    const trackSections = document.querySelectorAll('.track-section');
-    trackSections.forEach(section => {
-        section.addEventListener('mouseenter', () => {
-            section.style.borderColor = 'rgba(0, 255, 255, 0.4)';
-            section.style.backgroundColor = 'rgba(0, 255, 255, 0.02)';
-        });
-        
-        section.addEventListener('mouseleave', () => {
-            section.style.borderColor = 'rgba(0, 255, 255, 0.1)';
-            section.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
-        });
-    });
 }
 
-// Registration Modal
-function showRegistrationModal() {
-    // Remove any existing modals
-    const existingModals = document.querySelectorAll('.registration-modal');
-    existingModals.forEach(modal => modal.remove());
+// Interactive Elements - FIXED
+function initializeInteractiveElements() {
+    console.log('Initializing interactive elements...');
     
-    // Create modal
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    
+    // Mouse tracking for particle interactions
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        window.mouseX = mouseX;
+        window.mouseY = mouseY;
+    });
+    
+    // Registration buttons - FIXED
+    const registerBtn = document.getElementById('register-btn');
+    const floatingRegister = document.getElementById('floating-register');
+    
+    if (registerBtn) {
+        console.log('Register button found, adding event listener');
+        registerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Register button clicked');
+            showRegistrationModal();
+        });
+    } else {
+        console.error('Register button not found');
+    }
+    
+    if (floatingRegister) {
+        console.log('Floating register button found, adding event listener');
+        floatingRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Floating register button clicked');
+            showRegistrationModal();
+        });
+    }
+}
+
+// Registration Modal - FIXED
+function showRegistrationModal() {
+    console.log('Showing registration modal...');
+    
+    const existingModal = document.querySelector('.registration-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
     const modal = document.createElement('div');
-    modal.className = 'registration-modal';
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.92);
-        backdrop-filter: blur(15px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        animation: modalFadeIn 0.4s ease;
-    `;
+    modal.className = 'problem-modal registration-modal';
+    modal.style.zIndex = '10001';
     
     modal.innerHTML = `
-        <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); border: 2px solid #00ffff; border-radius: 25px; padding: 3rem; max-width: 600px; width: 90%; text-align: center; position: relative; box-shadow: 0 0 60px rgba(0, 255, 255, 0.4); animation: modalSlideIn 0.4s ease;">
-            <button id="close-modal" style="position: absolute; top: 1rem; right: 1.5rem; background: none; border: none; color: #00ffff; font-size: 2.5rem; cursor: pointer; transition: all 0.3s ease; line-height: 1;">&times;</button>
-            
-            <div style="margin-bottom: 2rem;">
-                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #00ffff, #0066ff); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; animation: iconPulse 2s infinite;">
-                    <span style="font-size: 2rem; color: #1a1a2e;">🚀</span>
-                </div>
-            </div>
-            
-            <h2 style="color: #ffffff; margin-bottom: 1rem; font-size: 2.2rem; text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);">Registration Opens Soon!</h2>
-            
-            <p style="color: #ffffff; margin-bottom: 2.5rem; line-height: 1.7; font-size: 1.1rem;">
-                Get ready for the most exciting signal processing challenge! Registration for the Signal Processing Cup Challenge 2025 will open during the specified dates.
-            </p>
-            
-            <div style="background: rgba(0, 0, 0, 0.4); border-radius: 15px; padding: 2rem; margin-bottom: 2rem;">
-                <h3 style="color: #ff6b35; margin-bottom: 1.5rem; text-shadow: 0 0 10px rgba(255, 107, 53, 0.5); font-size: 1.3rem;">📅 Important Dates</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
-                    <div style="background: rgba(0, 255, 255, 0.1); padding: 1rem; border-radius: 10px; border-left: 3px solid #00ffff;">
-                        <strong style="color: #00ffff;">Registration Period:</strong><br>
-                        <span style="color: #ffffff;">16-25 September 2025</span>
-                    </div>
-                    <div style="background: rgba(0, 102, 255, 0.1); padding: 1rem; border-radius: 10px; border-left: 3px solid #0066ff;">
-                        <strong style="color: #0066ff;">Grand Demo Day:</strong><br>
-                        <span style="color: #ffffff;">16-17 October 2025</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <button id="notify-btn" style="background: linear-gradient(135deg, #00ffff, #0066ff); color: #1a1a2e; padding: 1rem 2rem; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 0 25px rgba(0, 255, 255, 0.4); position: relative; overflow: hidden;">
-                    <span style="position: relative; z-index: 1;">🔔 Notify Me</span>
-                </button>
-                <button id="learn-more-btn" style="background: rgba(255, 107, 53, 0.1); color: #ff6b35; padding: 1rem 2rem; border: 2px solid #ff6b35; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s ease;">
-                    📖 Learn More
+        <div class="problem-modal-content" style="max-width: 600px;">
+            <div class="problem-modal-header">
+                <h2 class="problem-modal-title" style="color: var(--color-primary);">
+                    🚀 Registration Opens Soon!
+                </h2>
+                <button class="problem-modal-close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
                 </button>
             </div>
-            
-            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0, 255, 255, 0.2);">
-                <h4 style="color: #39ff14; margin-bottom: 1rem;">🏆 What You Can Win</h4>
-                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">💰</span>
-                        <span style="color: #ffffff; font-size: 0.9rem;">Cash Prizes</span>
+            <div class="problem-modal-body" style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--color-text-secondary);">
+                    Get ready for the most exciting signal processing challenge! Registration for the Signal Processing Cup Challenge 2025 will open during the specified dates.
+                </p>
+                
+                <div style="background: rgba(var(--color-primary-rgb, 33, 128, 141), 0.1); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                    <h3 style="color: var(--color-primary); margin-bottom: 1.5rem;">📅 Important Dates</h3>
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="background: var(--color-surface); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--color-primary);">
+                            <strong style="color: var(--color-primary);">Registration Period:</strong><br>
+                            <span>16-25 September 2025</span>
+                        </div>
+                        <div style="background: var(--color-surface); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--color-warning);">
+                            <strong style="color: var(--color-warning);">Grand Demo Day:</strong><br>
+                            <span>16-17 October 2025</span>
+                        </div>
                     </div>
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">🏅</span>
-                        <span style="color: #ffffff; font-size: 0.9rem;">Certificates</span>
-                    </div>
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">🤝</span>
-                        <span style="color: #ffffff; font-size: 0.9rem;">Recognition</span>
-                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn--primary" id="modal-notify-btn">
+                        🔔 Notify Me
+                    </button>
+                    <button class="btn btn--outline" id="modal-learn-btn">
+                        📖 Learn More
+                    </button>
                 </div>
             </div>
         </div>
     `;
     
-    // Add animations
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: scale(0.8) translateY(-50px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        @keyframes modalFadeOut {
-            from { opacity: 1; transform: scale(1); }
-            to { opacity: 0; transform: scale(0.9); }
-        }
-    `;
-    document.head.appendChild(style);
-    
     document.body.appendChild(modal);
     
+    // Show modal with animation
+    requestAnimationFrame(() => {
+        modal.classList.add('active');
+    });
+    
     // Event listeners
-    const closeBtn = modal.querySelector('#close-modal');
-    const notifyBtn = modal.querySelector('#notify-btn');
-    const learnMoreBtn = modal.querySelector('#learn-more-btn');
+    const closeBtn = modal.querySelector('.problem-modal-close');
+    const notifyBtn = modal.querySelector('#modal-notify-btn');
+    const learnBtn = modal.querySelector('#modal-learn-btn');
     
     closeBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        modal.style.animation = 'modalFadeOut 0.3s ease';
+        e.stopPropagation();
+        console.log('Modal close clicked');
+        modal.classList.remove('active');
         setTimeout(() => {
             if (modal.parentNode) {
                 modal.parentNode.removeChild(modal);
@@ -832,37 +1293,28 @@ function showRegistrationModal() {
     
     notifyBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        notifyBtn.innerHTML = '<span style="position: relative; z-index: 1;">✅ You\'ll be notified!</span>';
-        notifyBtn.style.background = 'linear-gradient(135deg, #39ff14, #00ff7f)';
-        
-        // Add particle burst effect
-        createParticleBurst(notifyBtn);
-        
-        setTimeout(() => {
-            closeBtn.click();
-        }, 2000);
+        e.stopPropagation();
+        console.log('Notify button clicked');
+        notifyBtn.innerHTML = '✅ You\'ll be notified!';
+        notifyBtn.disabled = true;
+        setTimeout(() => closeBtn.click(), 2000);
     });
     
-    learnMoreBtn.addEventListener('click', (e) => {
+    learnBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
+        console.log('Learn more button clicked');
         closeBtn.click();
-        setTimeout(() => {
-            // Scroll to tracks section
-            const tracksSection = document.getElementById('tracks');
-            if (tracksSection) {
-                tracksSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, 300);
+        setTimeout(() => navigateToPage('tracks'), 300);
     });
     
-    // Close on outside click
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             closeBtn.click();
         }
     });
     
-    // Close on ESC key
+    // ESC key support
     const handleEscape = (e) => {
         if (e.key === 'Escape') {
             closeBtn.click();
@@ -871,38 +1323,12 @@ function showRegistrationModal() {
     };
     document.addEventListener('keydown', handleEscape);
     
-    // Create particle burst when modal opens
-    setTimeout(() => {
-        createParticleBurst(modal.querySelector('h2'));
-    }, 400);
+    console.log('Registration modal created and shown');
 }
 
-// Particle burst effect
-function createParticleBurst(element) {
-    if (!element || !particleSystem) return;
-    
-    const rect = element.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    // Add temporary particles for burst effect
-    for (let i = 0; i < 15; i++) {
-        const angle = (i / 15) * Math.PI * 2;
-        const velocity = 3 + Math.random() * 2;
-        const particle = new Particle(centerX, centerY, 'innovation');
-        particle.vx = Math.cos(angle) * velocity;
-        particle.vy = Math.sin(angle) * velocity;
-        particle.life = 0.8;
-        particleSystem.push(particle);
-    }
-}
-
-// Main Animation Loop
+// Animation Loop
 function startAnimationLoop() {
-    if (!signalCanvas || !particlesCanvas) return;
-    
     function animate() {
-        // Clear canvases
         if (signalCtx) signalCtx.clearRect(0, 0, signalCanvas.width, signalCanvas.height);
         if (particlesCtx) particlesCtx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
         
@@ -916,25 +1342,10 @@ function startAnimationLoop() {
         const mouseX = window.mouseX || particlesCanvas.width / 2;
         const mouseY = window.mouseY || particlesCanvas.height / 2;
         
-        if (particleSystem && particleSystem.length > 0) {
-            // Remove dead particles and update living ones
-            particleSystem = particleSystem.filter(particle => {
-                particle.update(mouseX, mouseY);
-                particle.draw(particlesCtx);
-                return particle.life > 0;
-            });
-            
-            // Maintain minimum particle count
-            while (particleSystem.length < 60) {
-                const types = ['biomedical', 'wireless', 'environmental', 'vehicles', 'innovation', 'default'];
-                const randomType = types[Math.floor(Math.random() * types.length)];
-                particleSystem.push(new Particle(
-                    Math.random() * particlesCanvas.width,
-                    Math.random() * particlesCanvas.height,
-                    randomType
-                ));
-            }
-        }
+        particleSystem.forEach(particle => {
+            particle.update(mouseX, mouseY);
+            particle.draw(particlesCtx);
+        });
         
         animationId = requestAnimationFrame(animate);
     }
@@ -942,95 +1353,36 @@ function startAnimationLoop() {
     animate();
 }
 
+// Utility Functions
+function hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? 
+        `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : 
+        '33, 128, 141';
+}
+
 // Handle window resize
 window.addEventListener('resize', () => {
     resizeCanvas();
-    
-    // Reinitialize signal waveforms
     if (signalWaveforms.length > 0) {
         initializeSignalWaveforms();
     }
 });
 
-// Performance optimization: pause animations when tab is not visible
+// Pause animations when tab is not visible
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-        }
+        if (animationId) cancelAnimationFrame(animationId);
     } else {
         startAnimationLoop();
     }
 });
 
-// Easter eggs and interactions
-let clickCount = 0;
-document.addEventListener('click', (e) => {
-    clickCount++;
-    
-    // Add particle burst on click
-    if (particleSystem && particleSystem.length < 100) {
-        for (let i = 0; i < 8; i++) {
-            const types = ['biomedical', 'wireless', 'environmental', 'vehicles', 'innovation'];
-            const randomType = types[Math.floor(Math.random() * types.length)];
-            const angle = (i / 8) * Math.PI * 2;
-            const particle = new Particle(e.clientX, e.clientY, randomType);
-            particle.vx = Math.cos(angle) * 2;
-            particle.vy = Math.sin(angle) * 2;
-            particleSystem.push(particle);
-        }
-    }
-    
-    // Special effect after multiple clicks
-    if (clickCount === 15) {
-        document.body.style.filter = 'hue-rotate(180deg) saturate(1.5)';
-        setTimeout(() => {
-            document.body.style.filter = 'none';
-            clickCount = 0;
-        }, 3000);
-    }
-});
-
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-    switch(e.key) {
-        case 'r':
-        case 'R':
-            if (e.ctrlKey || e.metaKey) return;
-            e.preventDefault();
-            showRegistrationModal();
-            break;
-        case 'Escape':
-            const modals = document.querySelectorAll('.registration-modal');
-            modals.forEach(modal => {
-                if (modal.parentNode) modal.parentNode.removeChild(modal);
-            });
-            break;
-        case ' ': // Spacebar
-            if (e.target === document.body) {
-                e.preventDefault();
-                // Add burst of particles
-                for (let i = 0; i < 20; i++) {
-                    const types = ['biomedical', 'wireless', 'environmental', 'vehicles', 'innovation'];
-                    const randomType = types[Math.floor(Math.random() * types.length)];
-                    particleSystem.push(new Particle(
-                        Math.random() * window.innerWidth,
-                        Math.random() * window.innerHeight,
-                        randomType
-                    ));
-                }
-            }
-            break;
-    }
-});
-
-// Console messages
-console.log('🚀 SPS CUP 2025 - Signal Processing Cup Challenge - Interactive Website Loaded!');
-console.log('💡 Press "R" to open registration modal');
-console.log('🎨 Click anywhere to create particle effects');
-console.log('⚡ Press Spacebar for particle burst');
-console.log('🔬 Built with passion for signal processing innovation');
-
 // Initialize mouse position
 window.mouseX = window.innerWidth / 2;
 window.mouseY = window.innerHeight / 2;
+
+// Console message
+console.log('🚀 Signal Processing Cup Challenge 2025 - Multi-page Website Loaded!');
+console.log('💻 Enhanced UX with responsive navigation and professional design');
+console.log('🔧 Fixed registration modal and mobile navigation issues');
