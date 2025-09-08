@@ -313,8 +313,8 @@ function initializeSignalWaveforms() {
 
 // Countdown Timer
 function initializeCountdown() {
-    // Target date: September 28th, 2025 (Round 1)
-    const targetDate = new Date('2025-09-28T00:00:00').getTime();
+    // Target date: October 16th, 2025 at 00:00:00
+    const targetDate = new Date('2025-10-16T00:00:00').getTime();
     
     function updateCountdown() {
         const now = new Date().getTime();
@@ -330,12 +330,20 @@ function initializeCountdown() {
             animateNumber('hours', hours);
             animateNumber('minutes', minutes);
             animateNumber('seconds', seconds);
+        } else {
+            // Countdown finished
+            animateNumber('days', 0);
+            animateNumber('hours', 0);
+            animateNumber('minutes', 0);
+            animateNumber('seconds', 0);
+            clearInterval(intervalId);
         }
     }
     
     updateCountdown();
-    setInterval(updateCountdown, 1000);
+    const intervalId = setInterval(updateCountdown, 1000);
 }
+
 
 function animateNumber(elementId, targetValue) {
     const element = document.getElementById(elementId);
@@ -344,9 +352,7 @@ function animateNumber(elementId, targetValue) {
     const currentValue = parseInt(element.textContent) || 0;
     
     if (currentValue !== targetValue) {
-        const step = targetValue > currentValue ? 1 : -1;
-        const newValue = currentValue + step;
-        element.textContent = newValue.toString().padStart(2, '0');
+        element.textContent = targetValue.toString().padStart(2, '0');
         
         // Add pulse effect
         element.style.transform = 'scale(1.1)';
@@ -355,6 +361,7 @@ function animateNumber(elementId, targetValue) {
         }, 200);
     }
 }
+
 
 // Scroll Animations
 function initializeScrollAnimations() {
