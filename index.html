@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Processing Cup Challenge 2025</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animations -->
+    <div id="background-container">
+        <canvas id="signal-canvas"></canvas>
+        <canvas id="particles-canvas"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">SPC 2025</div>
+            <div class="nav-links">
+                <a href="#overview" data-scroll="overview">Overview</a>
+                <a href="#tracks" data-scroll="tracks">Tracks</a>
+                <a href="#rounds" data-scroll="rounds">Rounds</a>
+                <a href="#awards" data-scroll="awards">Awards</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">Signal Processing</span>
+                <span class="title-line accent">Cup Challenge</span>
+            </h1>
+            <p class="hero-subtitle">Decode the Future of Biomedical Innovation</p>
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">0</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            <button class="btn btn--primary btn--lg cta-button" id="register-btn">
+                Register Now
+                <div class="pulse-ring"></div>
+            </button>
+        </div>
+        <div class="signal-waveforms">
+            <div class="waveform ecg-wave"></div>
+            <div class="waveform eeg-wave"></div>
+            <div class="waveform emg-wave"></div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+        <div class="container">
+            <h2 class="section-title">Overview</h2>
+            <div class="overview-content">
+                <p class="section-description">
+                    Join us in exploring the cutting-edge world of signal processing and its revolutionary applications in healthcare and biomedical engineering. This hackathon brings together brilliant minds to solve real-world challenges in medical signal analysis.
+                </p>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="48">0</div>
+                        <div class="stat-label">Hours of Innovation</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="100">0</div>
+                        <div class="stat-label">Participants Expected</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="4">0</div>
+                        <div class="stat-label">Challenge Tracks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purpose Section -->
+    <section id="purpose" class="section">
+        <div class="container">
+            <h2 class="section-title">Purpose</h2>
+            <div class="purpose-content">
+                <p class="section-description">
+                    Advancing biomedical signal processing techniques to improve healthcare diagnostics, treatment monitoring, and patient outcomes through innovative engineering solutions.
+                </p>
+                <div class="purpose-grid">
+                    <div class="purpose-card">
+                        <div class="purpose-icon heart-icon"></div>
+                        <h3>Healthcare Innovation</h3>
+                        <p>Revolutionizing patient care through advanced signal analysis</p>
+                    </div>
+                    <div class="purpose-card">
+                        <div class="purpose-icon brain-icon"></div>
+                        <h3>Neural Engineering</h3>
+                        <p>Unlocking the mysteries of brain signals and neural interfaces</p>
+                    </div>
+                    <div class="purpose-card">
+                        <div class="purpose-icon medical-icon"></div>
+                        <h3>Medical Technology</h3>
+                        <p>Creating next-generation diagnostic and monitoring systems</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracks Section -->
+    <section id="tracks" class="section">
+        <div class="container">
+            <h2 class="section-title">Tracks & Problem Statements</h2>
+            <div class="tracks-grid">
+                <div class="track-card" data-track="ecg">
+                    <div class="track-header">
+                        <div class="track-icon ecg-icon"></div>
+                        <h3>ECG Signal Analysis</h3>
+                    </div>
+                    <p>Develop algorithms for cardiac rhythm analysis and anomaly detection</p>
+                    <div class="track-mini-signal ecg-mini"></div>
+                </div>
+                <div class="track-card" data-track="eeg">
+                    <div class="track-header">
+                        <div class="track-icon eeg-icon"></div>
+                        <h3>EEG Brain Signal Processing</h3>
+                    </div>
+                    <p>Create brain-computer interfaces and neurological disorder detection systems</p>
+                    <div class="track-mini-signal eeg-mini"></div>
+                </div>
+                <div class="track-card" data-track="emg">
+                    <div class="track-header">
+                        <div class="track-icon emg-icon"></div>
+                        <h3>EMG Muscle Signal Analysis</h3>
+                    </div>
+                    <p>Build systems for muscle activity monitoring and rehabilitation</p>
+                    <div class="track-mini-signal emg-mini"></div>
+                </div>
+                <div class="track-card" data-track="ai">
+                    <div class="track-header">
+                        <div class="track-icon ai-icon"></div>
+                        <h3>Medical Imaging & AI</h3>
+                    </div>
+                    <p>Apply machine learning to medical image analysis and diagnosis</p>
+                    <div class="track-mini-signal ai-mini"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Formation Section -->
+    <section id="team" class="section">
+        <div class="container">
+            <h2 class="section-title">Team Formation</h2>
+            <div class="team-content">
+                <div class="team-requirements">
+                    <div class="requirement-item">
+                        <strong>Team Size:</strong> 4-6 members per team
+                    </div>
+                    <div class="requirement-item">
+                        <strong>Skills Needed:</strong>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Signal Processing</span>
+                            <span class="skill-tag">Machine Learning</span>
+                            <span class="skill-tag">Biomedical Engineering</span>
+                            <span class="skill-tag">Software Development</span>
+                            <span class="skill-tag">Data Analysis</span>
+                        </div>
+                    </div>
+                    <div class="requirement-item">
+                        <strong>Eligibility:</strong> Students, researchers, and professionals in engineering, computer science, and related fields
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rules Section -->
+    <section id="rules" class="section">
+        <div class="container">
+            <h2 class="section-title">General Rules</h2>
+            <div class="rules-list">
+                <div class="rule-item">Teams must be formed prior to the hackathon start date</div>
+                <div class="rule-item">All code and solutions must be original work created during the event</div>
+                <div class="rule-item">Use of existing libraries and frameworks is permitted</div>
+                <div class="rule-item">Teams must submit working demos and documentation</div>
+                <div class="rule-item">Judges' decisions are final</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards" class="section">
+        <div class="container">
+            <h2 class="section-title">Awards & Recognition</h2>
+            <div class="awards-grid">
+                <div class="award-card grand-prize">
+                    <div class="award-icon trophy-icon"></div>
+                    <h3>Grand Prize</h3>
+                    <div class="prize-amount">₹50,000</div>
+                    <p>+ Mentorship Opportunity</p>
+                    <span class="award-desc">Best overall solution</span>
+                </div>
+                <div class="award-card track-prize">
+                    <div class="award-icon medal-icon"></div>
+                    <h3>Track Winners</h3>
+                    <div class="prize-amount">₹25,000</div>
+                    <p>each track</p>
+                    <span class="award-desc">Best solution per track</span>
+                </div>
+                <div class="award-card innovation-prize">
+                    <div class="award-icon star-icon"></div>
+                    <h3>Innovation Award</h3>
+                    <div class="prize-amount">₹15,000</div>
+                    <p>Special Recognition</p>
+                    <span class="award-desc">Most creative approach</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rounds Section -->
+    <section id="rounds" class="section">
+        <div class="container">
+            <h2 class="section-title">Competition Rounds</h2>
+            <div class="rounds-timeline">
+                <div class="round-item">
+                    <div class="round-number">01</div>
+                    <div class="round-content">
+                        <h3>PPT Screening</h3>
+                        <div class="round-date">Sunday, 28th September 2025</div>
+                        <p>Initial presentation screening of team ideas and approaches</p>
+                        <div class="round-format">Results announced via email</div>
+                    </div>
+                </div>
+                <div class="round-item">
+                    <div class="round-number">02</div>
+                    <div class="round-content">
+                        <h3>Online Conference Round</h3>
+                        <div class="round-date">September - October 2nd, 2025 (5-8 PM)</div>
+                        <p>Detailed presentation and demonstration to judges</p>
+                        <div class="round-format">Top 6 teams from each theme selected</div>
+                        <div class="round-announcement">Results: Sunday, 5th October 2025</div>
+                    </div>
+                </div>
+                <div class="round-item">
+                    <div class="round-number">03</div>
+                    <div class="round-content">
+                        <h3>Final Physical Round</h3>
+                        <div class="round-date">16th and 17th October 2025</div>
+                        <p>In-person final presentations and demonstrations at SSNCE Campus</p>
+                        <div class="round-format">Physical presentation and demo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Signal Processing Cup 2025</h4>
+                    <p>Advancing biomedical innovation through signal processing</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>SSNCE Campus</p>
+                    <p>Chennai, Tamil Nadu</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Registration Button -->
+    <div class="floating-action-btn" id="floating-register">
+        <span>Register</span>
+        <div class="fab-pulse"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
