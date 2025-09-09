@@ -159,12 +159,12 @@
         </div>
     </section>
 
-    <!-- Tracks Section -->
+    
     <section id="tracks" class="section">
         <div class="container">
             <h2 class="section-title">Tracks & Problem Statements</h2>
             <div class="tracks-container">
-                
+    
                 <!-- Track 1: Biomedical Signal Processing -->
                 <div class="track-section" data-track="biomedical">
                     <div class="track-header">
@@ -175,41 +175,32 @@
                         <div class="problem-card" data-problem="motor-imagery">
                             <div class="problem-header">
                                 <h4>Motor Imagery EEG Control</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Design a system that decodes motor imagery from EEG signals to allow hands-free control interfaces. Build a signal processing pipeline that classifies multi-channel EEG data based on imagined limb movements, such as left hand versus right hand.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Build a signal processing pipeline that classifies multi-channel EEG data based on imagined limb movements, such as left hand versus right hand. The solution should include preprocessing, like filtering and artifact removal, feature extraction, such as CSP(Common Spatial Patterns) and wavelet transforms, and classification, using methods like SVM(Support Vector Machine) and CNN(Convolutional Neural Network). There are bonus points for real-time implementation or integration with a virtual interface.</p>
-                            </div>
+                            <p class="problem-description">
+                                Build a signal processing pipeline that classifies multi-channel EEG data based on imagined limb movements, such as left hand versus right hand. The solution should include preprocessing like filtering and artifact removal, feature extraction using CSP (Common Spatial Patterns) and wavelet transforms, and classification with methods like SVM (Support Vector Machine) and CNN (Convolutional Neural Network). Bonus points for real-time implementation or virtual interface integration.
+                            </p>
                         </div>
-                        
+    
                         <div class="problem-card" data-problem="emotional-state">
                             <div class="problem-header">
                                 <h4>Emotional State Recognition</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Develop a model that identifies emotional states using EEG signals to support mental health monitoring and user interfaces that adjust to needs. Create a system that processes EEG data to classify emotional states, including happiness, stress, or calmness.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Create a system that processes EEG data to classify emotional states, including happiness, stress, or calmness. Use publicly available datasets, such as DEAP and DREAMER, and apply techniques like frequency band analysis, entropy measures, and machine learning classifiers. Focus on making the results easy to interpret and reliable across different subjects.</p>
-                            </div>
+                            <p class="problem-description">
+                                Create a system that processes EEG data to classify emotional states such as happiness, stress, or calmness. Use datasets like DEAP and DREAMER, applying frequency band analysis, entropy measures, and machine learning classifiers. Focus on interpretability and subject-independent accuracy for mental health monitoring.
+                            </p>
                         </div>
-                        
+    
                         <div class="problem-card" data-problem="cognitive-workload">
                             <div class="problem-header">
                                 <h4>Cognitive Workload Estimation</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Estimate cognitive workload from EEG signals to improve human-computer interaction and learning systems. Design a pipeline that analyzes EEG recordings to measure cognitive load during tasks, such as problem-solving or multitasking.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Design a pipeline that analyzes EEG recordings to measure cognitive load during tasks, such as problem-solving or multitasking. Include preprocessing, feature engineering, like theta/beta ratio and spectral power, and use regression or classification models. Consider adding real-time feedback mechanisms or integration with adaptive systems.</p>
-                            </div>
+                            <p class="problem-description">
+                                Design a pipeline to analyze EEG recordings for measuring cognitive load during tasks like problem-solving or multitasking. Include preprocessing, feature engineering such as theta/beta ratio and spectral power, and use regression or classification models. Real-time feedback and adaptive systems are encouraged.
+                            </p>
                         </div>
                     </div>
                 </div>
-
+    
                 <!-- Track 2: Wireless Sensing -->
                 <div class="track-section" data-track="wireless">
                     <div class="track-header">
@@ -217,20 +208,35 @@
                         <h3>Wireless Sensing: Wi-Fi Vision</h3>
                     </div>
                     <div class="problems-grid">
-                        <div class="problem-card centered-card" data-problem="device-free">
+                        <div class="problem-card" data-problem="device-free">
                             <div class="problem-header">
                                 <h4>Device-Free Activity Recognition</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Use Channel State Information (CSI) extracted from standard Wi-Fi packets to detect and classify human activities in a room (e.g., walking, sitting, waving) without using cameras or wearables.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Use Channel State Information (CSI) extracted from standard Wi-Fi packets to detect and classify human activities in a room (e.g., walking, sitting, waving) without using cameras or wearables. Focus on signal processing techniques for CSI analysis and machine learning models for activity classification.</p>
+                            <p class="problem-description">
+                                Use Channel State Information (CSI) from standard Wi-Fi packets to classify activities like walking, sitting, or waving without cameras or wearables. Analyze temporal and frequency features using signal processing and machine learning to ensure reliable, privacy-friendly activity recognition.
+                            </p>
+                        </div>
+    
+                        <div class="problem-card" data-problem="sleep-stage">
+                            <div class="problem-header">
+                                <h4>Non-invasive Sleep Stage Monitoring</h4>
                             </div>
+                            <p class="problem-description">
+                                Design a system using Wi-Fi CSI to distinguish sleep stages like light, deep, and REM sleep without wearables. Analyze subtle signal changes caused by respiration and movements using machine learning, offering real-time visualizations or sleep reports for actionable feedback.
+                            </p>
+                        </div>
+    
+                        <div class="problem-card" data-problem="indoor-navigation">
+                            <div class="problem-header">
+                                <h4>Indoor Positioning & Navigation for the Visually Impaired</h4>
+                            </div>
+                            <p class="problem-description">
+                                Use CSI and signal fingerprinting to estimate indoor locations, integrating accelerometer and gyroscope data for pedestrian dead reckoning. Provide obstacle detection via dynamic signal changes, delivering voice or haptic feedback for safe navigation while preserving privacy with minimal infrastructure.
+                            </p>
                         </div>
                     </div>
                 </div>
-
+    
                 <!-- Track 3: Environmental & Geospatial -->
                 <div class="track-section" data-track="environmental">
                     <div class="track-header">
@@ -241,41 +247,32 @@
                         <div class="problem-card" data-problem="seismic">
                             <div class="problem-header">
                                 <h4>Seismic Event Classifier</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Identify earthquakes by clear P and S arrivals, emergent onset, long coda, and strong low-frequency surface waves. Detect explosions through impulsive P waves, weak or absent S waves, short duration, and high-frequency content.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Classify different types of seismic events and distinguish them from urban noise. Identify earthquakes by clear P and S arrivals, emergent onset, long coda, and strong low-frequency surface waves. Detect explosions through impulsive P waves, weak or absent S waves, short duration, and high-frequency content. Recognize urban noise as continuous, high-frequency, repetitive signals without distinct seismic phases.</p>
-                            </div>
+                            <p class="problem-description">
+                                Identify earthquakes by detecting clear P and S wave arrivals, long codas, and low-frequency waves, while distinguishing explosions and urban noise based on wave characteristics. The system should classify seismic events accurately using signal features.
+                            </p>
                         </div>
-                        
+    
                         <div class="problem-card" data-problem="acoustic">
                             <div class="problem-header">
                                 <h4>Acoustic Source Localization</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Set up an array of microphones at precisely known positions in the environment. Record the sound signal as it reaches each microphone. Calculate the Time Difference of Arrival (TDOA) of the sound between microphones.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Set up an array of microphones at precisely known positions in the environment. Record the sound signal as it reaches each microphone. Carefully calculate the Time Difference of Arrival (TDOA) of the sound between microphones. Use these time delays to estimate relative distances from the source. Finally, apply triangulation or multilateration techniques to accurately determine and pinpoint the physical location of the sound source.</p>
-                            </div>
+                            <p class="problem-description">
+                                Set up a microphone array to record sound signals and calculate Time Difference of Arrival (TDOA) between microphones. Use triangulation techniques to determine the source location precisely, leveraging accurate environmental geometry.
+                            </p>
                         </div>
-                        
+    
                         <div class="problem-card" data-problem="deforestation">
                             <div class="problem-header">
                                 <h4>Deforestation Detector with Radar Imagery</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Collect time-series Synthetic Aperture Radar (SAR) satellite images of the target region. Preprocess the imagery to remove noise and align datasets. Compare images across different time intervals to identify significant changes.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Collect time-series Synthetic Aperture Radar (SAR) satellite images of the target region. Preprocess the imagery to remove noise and align datasets. Compare images across different time intervals to identify significant changes in backscatter patterns. Detect anomalies indicating vegetation loss. Highlight and map these areas to pinpoint recent deforestation accurately.</p>
-                            </div>
+                            <p class="problem-description">
+                                Use time-series SAR satellite images to detect vegetation loss by preprocessing, noise removal, and aligning datasets. Compare imagery over time to highlight deforestation areas, mapping changes in backscatter patterns for conservation efforts.
+                            </p>
                         </div>
                     </div>
                 </div>
-
+    
                 <!-- Track 4: Electronic Vehicles -->
                 <div class="track-section" data-track="vehicles">
                     <div class="track-header">
@@ -286,41 +283,32 @@
                         <div class="problem-card" data-problem="inverter">
                             <div class="problem-header">
                                 <h4>Inverter Fault Detection</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Build a system that detects inverter faults in EVs by analyzing current and voltage waveforms. The pipeline should include preprocessing signals with filtering and denoising methods and extracting features using FFT, Wavelet Transform, and time-frequency analysis.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Build a system that detects inverter faults in EVs by analyzing current and voltage waveforms. The pipeline should include: Preprocessing signals with filtering and denoising methods. Extracting features using FFT, Wavelet Transform, and time-frequency analysis to spot harmonic distortions, short circuits, or switching faults. Using adaptive filtering to separate fault signals from normal noise. Classifying faults with machine learning models for real-time detection. Integrating with onboard vehicle control units for alerts and cloud dashboards for fleet monitoring.</p>
-                            </div>
+                            <p class="problem-description">
+                                Detect inverter faults by analyzing current and voltage waveforms using filtering, FFT, Wavelet Transform, and time-frequency analysis. Identify faults like harmonics and short circuits using adaptive filtering and machine learning for real-time alerts and fleet monitoring.
+                            </p>
                         </div>
-                        
+    
                         <div class="problem-card" data-problem="motor">
                             <div class="problem-header">
                                 <h4>Electric Motor Condition Monitoring</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Develop a signal processing pipeline that continuously checks EV motor health using stator current, vibration, and sound emission signals. Use Envelope Detection, Hilbert-Huang Transform, and Spectrogram analysis.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Develop a signal processing pipeline that continuously checks EV motor health using stator current, vibration, and sound emission signals. The system should: Preprocess signals to cut down noise and improve the signal-to-noise ratio. Use Envelope Detection, Hilbert-Huang Transform, and Spectrogram analysis to pull out fault-specific features. Detects issues like bearing wear, rotor misalignment, and insulation breakdown. Implement real-time anomaly classification using AI/ML models like SVM and CNN. Offer predictive insights for preventive maintenance and less downtime.</p>
-                            </div>
+                            <p class="problem-description">
+                                Monitor EV motor health by analyzing vibration, current, and sound signals. Preprocess to enhance signal quality, apply Envelope Detection and Hilbert-Huang Transform, and use AI/ML models like SVM and CNN to detect faults, offering predictive maintenance insights.
+                            </p>
                         </div>
-                        
+    
                         <div class="problem-card" data-problem="road">
                             <div class="problem-header">
                                 <h4>Road Condition Classification</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Develop a road-condition classification system for EVs using vibration signal processing. Acquire vibration signals from accelerometers attached to the suspension and chassis using time-frequency analysis.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>Develop a road-condition classification system for EVs using vibration signal processing. The system should acquire vibration signals from accelerometers attached to the suspension and chassis. Use time-frequency analysis, such as STFT and Wavelet Transforms, to classify road conditions like smooth, rough, potholes, wet, or gravel. Connect vibration patterns with tire-road interaction for better suspension control. Enable adaptive ride comfort and proactive safety features like auto-braking and traction control. Support integration with EV fleet management for optimizing routes.</p>
-                            </div>
+                            <p class="problem-description">
+                                Classify road conditions using accelerometer signals from EV suspensions. Apply STFT and Wavelet Transforms to detect patterns linked to smooth, rough, or hazardous surfaces, enhancing ride comfort, safety, and fleet optimization.
+                            </p>
                         </div>
                     </div>
                 </div>
-
+    
                 <!-- Track 5: Student Innovation -->
                 <div class="track-section" data-track="innovation">
                     <div class="track-header">
@@ -331,20 +319,18 @@
                         <div class="problem-card centered-card" data-problem="open">
                             <div class="problem-header">
                                 <h4>Open Innovation Track</h4>
-                                <button class="expand-btn" data-expanded="false">+</button>
                             </div>
-                            <p class="problem-description">Propose your own innovative signal processing solution to address real-world challenges. This track encourages creative thinking and novel applications of signal processing techniques across any domain.</p>
-                            <div class="problem-details">
-                                <strong>Challenge:</strong>
-                                <p>This track is open for students to propose their own innovative signal processing solutions addressing real-world challenges. Solutions should demonstrate novelty, technical depth, and practical impact. Teams are encouraged to explore cutting-edge applications and interdisciplinary approaches to signal processing.</p>
-                            </div>
+                            <p class="problem-description">
+                                Propose novel signal processing solutions addressing real-world challenges. Solutions may be hardware or software-based and must demonstrate technical depth, innovation, and practical impact. Interdisciplinary and cutting-edge approaches are encouraged.
+                            </p>
                         </div>
                     </div>
                 </div>
-
+    
             </div>
         </div>
     </section>
+    
 
     <!-- Team Formation Section -->
     <section id="team" class="section">
