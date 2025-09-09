@@ -954,7 +954,7 @@ document.addEventListener('click', (e) => {
         setTimeout(() => {
             document.body.style.filter = 'none';
             clickCount = 0;
-        }, 3000);
+        }, 15000);
     }
 });
 
