@@ -755,47 +755,6 @@ function showRegistrationModal() {
             <p style="color: #ffffff; margin-bottom: 2.5rem; line-height: 1.7; font-size: 1.1rem;">
                 Get ready for the most exciting signal processing challenge! Registration for the Signal Processing Cup Challenge 2025 will open during the specified dates.
             </p>
-            
-            <div style="background: rgba(0, 0, 0, 0.4); border-radius: 15px; padding: 2rem; margin-bottom: 2rem;">
-                <h3 style="color: #ff6b35; margin-bottom: 1.5rem; text-shadow: 0 0 10px rgba(255, 107, 53, 0.5); font-size: 1.3rem;">📅 Important Dates</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: left;">
-                    <div style="background: rgba(0, 255, 255, 0.1); padding: 1rem; border-radius: 10px; border-left: 3px solid #00ffff;">
-                        <strong style="color: #00ffff;">Registration Period:</strong><br>
-                        <span style="color: #ffffff;">16-25 September 2025</span>
-                    </div>
-                    <div style="background: rgba(0, 102, 255, 0.1); padding: 1rem; border-radius: 10px; border-left: 3px solid #0066ff;">
-                        <strong style="color: #0066ff;">Grand Demo Day:</strong><br>
-                        <span style="color: #ffffff;">16-17 October 2025</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <button id="notify-btn" style="background: linear-gradient(135deg, #00ffff, #0066ff); color: #1a1a2e; padding: 1rem 2rem; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 0 25px rgba(0, 255, 255, 0.4); position: relative; overflow: hidden;">
-                    <span style="position: relative; z-index: 1;">🔔 Notify Me</span>
-                </button>
-                <button id="learn-more-btn" style="background: rgba(255, 107, 53, 0.1); color: #ff6b35; padding: 1rem 2rem; border: 2px solid #ff6b35; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s ease;">
-                    📖 Learn More
-                </button>
-            </div>
-            
-            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0, 255, 255, 0.2);">
-                <h4 style="color: #39ff14; margin-bottom: 1rem;">🏆 What You Can Win</h4>
-                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">💰</span>
-                        <span style="color: #ffffff; font-size: 0.9rem;">Cash Prizes</span>
-                    </div>
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">🏅</span>
-                        <span style="color: #ffffff; font-size: 0.9rem;">Certificates</span>
-                    </div>
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 1.5rem; margin-bottom: 0.5rem;">🤝</span>
-                        <span style="color: #ffffff; font-size: 0.9rem;">Recognition</span>
-                    </div>
-                </div>
-            </div>
         </div>
     `;
     
