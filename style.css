@@ -773,81 +773,180 @@ body {
     width: 100%;
     height: 100%;
 }
-
 /* Navigation */
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
-    z-index: 1000;
-    transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
 }
 
+/* Logo container and logos */
+.nav-logos {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;                   /* Fixed container height for visual balance */
+  width: 90px;                    /* Width to balance logo shapes */
+  padding: 4px 10px;
+  /* background: linear-gradient(110deg, #e0f7fa 75%, #e3ecfd 100%); */
+  border-radius: 3px;
+  /* box-shadow: 0 2px 10px rgba(0, 255, 255, 0.10); */
+  transition: box-shadow 0.16s;
+  margin: 0 20px;
+}
+
+/* .logo-bg:hover {
+  box-shadow: 0 4px 14px rgba(0, 255, 255, 0.17);
+} */
+
+.nav-logo {
+  max-height: 51px;   /* 34px * 1.5 */
+  max-width: 114px;   /* 76px * 1.5 */
+  min-height: 34px;   /* 34px * 1.5 */
+  min-width: 76px ;
+  object-fit: contain;
+  display: block;
+  background: none;
+  border-radius: 3px;
+  transition: transform 0.14s;
+  /* margin-right: 20px; */
+}
+
+.logo-bg:hover .nav-logo {
+  transform: scale(1.09);
+}
+
+/* Brand text */
 .nav-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00ffff;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    cursor: pointer;
-    transition: all 0.3s ease;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 20px;
 }
-
 .nav-brand:hover {
-    transform: scale(1.05);
-    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+  transform: scale(1.05);
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
 
+/* Navigation links */
 .nav-links {
-    display: flex;
-    gap: 2rem;
+  display: flex;
+  gap: 2rem;
 }
 
 .nav-links a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
-    padding: 0.5rem 0;
-    cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+  cursor: pointer;
 }
 
 .nav-links a:hover {
-    color: #00ffff;
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+  color: #00ffff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background: linear-gradient(90deg, #00ffff, #0066ff);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background: linear-gradient(90deg, #00ffff, #0066ff);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 
 .nav-links a:hover::after,
 .nav-links a.active::after {
-    width: 100%;
+  width: 100%;
 }
 
 .nav-links a.active {
-    color: #00ffff;
+  color: #00ffff;
 }
+
+/* Responsive Design */
+@media (max-width: 800px) {
+  .nav-container {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0.85rem 1.1rem;
+  }
+
+  .nav-logos {
+      gap: 0.5rem;
+  }
+
+  .logo-bg {
+      height: 26px;
+      width: 52px;
+      padding: 2px 6px;
+      border-radius: 3px;
+  }
+
+  .nav-logo {
+      max-height: 18px;
+      max-width: 40px;
+  }
+
+  .nav-brand {
+      font-size: 1.04rem;
+      margin-left: 0.7rem;
+  }
+
+  .nav-links {
+      display: none;
+  }
+}
+
+@media (max-width: 490px) {
+  .nav-container {
+      padding: 0.55rem 0.45rem;
+  }
+
+  .nav-logo {
+      max-height: 16px;
+      max-width: 36px;
+  }
+
+  .logo-bg {
+      border-radius: 3px;
+  }
+
+  .nav-brand {
+      font-size: 0.89rem;
+      margin-left: 0.45rem;
+  }
+}
+
 
 /* Hero Section */
 .hero-section {

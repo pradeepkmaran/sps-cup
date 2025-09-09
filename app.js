@@ -544,28 +544,36 @@ function initializeScrollAnimations() {
 
 function animateCounter(element) {
     const target = parseInt(element.dataset.target);
-    const duration = 2000;
+
+    const baseSpeed = 50;
+    const minDuration = 200;
+    const maxDuration = 1200;
+
+    let duration = Math.max(minDuration, Math.min(maxDuration, target * baseSpeed));
+    duration += Math.random() * 500;
+
     const start = performance.now();
-    
+
     function updateCounter(currentTime) {
         const elapsed = currentTime - start;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Easing function
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const current = Math.floor(easeOutQuart * target);
-        
+        let progress = elapsed / duration;
+        if (progress > 1) progress = 1;
+
+        // Linear progress without easing
+        const current = Math.floor(progress * target);
+
         element.textContent = current;
-        
+
         if (progress < 1) {
             requestAnimationFrame(updateCounter);
         } else {
             element.textContent = target;
         }
     }
-    
+
     requestAnimationFrame(updateCounter);
 }
+
 
 // Smooth Scrolling
 function initializeSmoothScrolling() {
